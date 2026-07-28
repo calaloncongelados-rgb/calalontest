@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finalizar compra — ProOliva</title>
+<title>Finalizar compra — CALALÓN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#20281a; --olive:#55643b; --olive-deep:#3a4527; --gold:#c89b3c; --gold-deep:#9c7326;
-    --coffee:#3f2e20; --linen:#f3eee0; --paper:#fbf9f2; --line:rgba(32,40,26,0.14); --danger:#a3392f;
+    --ink:#1c2e33; --olive:#7a9eaa; --olive-deep:#5a8595; --gold:#c85a2a; --gold-deep:#a04a22;
+    --coffee:#2d4a52; --linen:#e8e2d8; --paper:#ede8df; --line:rgba(28,46,51,0.14); --danger:#a3392f;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{ font-family:'Public Sans', sans-serif; background:var(--linen); color:var(--ink); line-height:1.6;}
@@ -90,9 +90,9 @@
 
 <header>
   <div class="wrap">
-    <img class="logo-mark" src="logo.png" alt="ProOlivas Chile">
+    <img class="logo-mark" src="logo.png" alt="CALALÓN Congelados">
     <a class="back-link" href="productos.html">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#3a4527" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#5a8595" stroke-width="2" stroke-linecap="round"/></svg>
       Volver al catálogo
     </a>
   </div>
@@ -303,7 +303,7 @@
       if (isLocalDeliveryZone){
         document.getElementById('quoteShippingBtn').style.display = 'none';
         document.getElementById('quoteBlueExpressBtn').style.display = 'none';
-        localBanner.innerHTML = '🚐 Este pedido se despacha con <b>transporte propio de ProOliva</b> — sin costo de envío.';
+        localBanner.innerHTML = '🚐 Este pedido se despacha con <b>transporte propio de CALALÓN</b> — sin costo de envío.';
         localBanner.style.display = 'block';
       } else {
         freeBanner.style.display = 'block';
@@ -323,7 +323,7 @@
       document.getElementById('shippingError').style.display = 'none';
       document.getElementById('quoteShippingBtn').style.display = 'none';
       document.getElementById('quoteBlueExpressBtn').style.display = 'none';
-      localBanner.innerHTML = `🚐 Este pedido se despacha con <b>transporte propio de ProOliva</b> — costo de envío: ${formatCLP(shippingCost)}.`;
+      localBanner.innerHTML = `🚐 Este pedido se despacha con <b>transporte propio de CALALÓN</b> — costo de envío: ${formatCLP(shippingCost)}.`;
       localBanner.style.display = 'block';
       updateTotals();
       document.getElementById('payWebpayBtn').disabled = false;

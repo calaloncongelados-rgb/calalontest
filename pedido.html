@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Pedido — ProOliva Admin</title>
+<title>Pedido — CALALÓN Admin</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#20281a; --olive:#55643b; --olive-deep:#3a4527; --olive-light:#8a9a66;
-    --gold:#c89b3c; --gold-deep:#9c7326; --linen:#f3eee0; --paper:#fbf9f2; --line:rgba(32,40,26,0.14);
+    --ink:#1c2e33; --olive:#7a9eaa; --olive-deep:#5a8595; --olive-light:#9ab8c2;
+    --gold:#c85a2a; --gold-deep:#a04a22; --linen:#e8e2d8; --paper:#ede8df; --line:rgba(28,46,51,0.14);
     --danger:#a3392f;
   }
   *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
@@ -89,9 +89,9 @@
 
 <div class="admin-header">
   <div class="wrap">
-    <div class="brand"><img src="logo.png" alt="ProOlivas Chile"> Panel de administración</div>
+    <div class="brand"><img src="logo.png" alt="CALALÓN Congelados"> Panel de administración</div>
     <a class="back-link" href="admin.html#pedidos">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fbf9f2" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#ede8df" stroke-width="2" stroke-linecap="round"/></svg>
       Volver a Pedidos
     </a>
   </div>
@@ -179,8 +179,8 @@
 
   function estadoLabel(o){
     if (o.delivered) return { text: 'Entregado', cls: 'badge-on' };
-    if (o.dispatched) return { text: 'Despachado', cls: '', style: 'background:#f3e6c9; color:#9c7326;' };
-    if (o.ready) return { text: 'Preparado', cls: '', style: 'background:#e0e6d6; color:#55643b;' };
+    if (o.dispatched) return { text: 'Despachado', cls: '', style: 'background:#f3e6c9; color:#a04a22;' };
+    if (o.ready) return { text: 'Preparado', cls: '', style: 'background:#e0e6d6; color:#7a9eaa;' };
     return { text: 'Por preparar', cls: 'badge-off' };
   }
 

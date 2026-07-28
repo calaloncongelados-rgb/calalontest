@@ -1,5 +1,5 @@
 // ============================================================
-// ProOliva — Barra de suscripción (index.html y productos.html)
+// CALALÓN — Barra de suscripción (index.html y productos.html)
 //
 // Guarda correo + RUT de interesados en la tabla "subscribers" de
 // Supabase. Requiere que supabase-config.js ya esté cargado antes

@@ -1,5 +1,5 @@
 // ============================================================
-// ProOliva — Carrito de compras (compartido entre páginas)
+// CALALÓN — Carrito de compras (compartido entre páginas)
 //
 // El carrito se guarda en localStorage del navegador, por eso
 // persiste aunque el visitante navegue entre index.html,
@@ -15,8 +15,8 @@
 // exista el HTML del drawer (#cartDrawer, #cartItems, etc).
 // ============================================================
 
-const CART_KEY = 'prooliva_cart';
-const WSP_NUMBER = '56988256980';
+const CART_KEY = 'calalon_cart';
+const WSP_NUMBER = '56978097859';
 
 function formatCLP(value){
   return new Intl.NumberFormat('es-CL', { style:'currency', currency:'CLP', maximumFractionDigits:0 }).format(value || 0);
@@ -96,7 +96,7 @@ function updateCartBadge(){
 }
 
 function buildCartMessage(cart){
-  const lines = ['Hola, quiero cotizar mi carrito de ProOliva:', ''];
+  const lines = ['Hola, quiero cotizar mi carrito de CALALÓN:', ''];
   cart.forEach(i => {
     lines.push(`• ${i.qty}x ${i.name} — ${formatCLP(i.price * i.qty)}`);
   });

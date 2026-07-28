@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Panel de administración — ProOliva</title>
+<title>Panel de administración — CALALÓN</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#20281a; --olive:#55643b; --olive-deep:#3a4527; --olive-light:#8a9a66;
-    --gold:#c89b3c; --gold-deep:#9c7326; --linen:#f3eee0; --paper:#fbf9f2; --line:rgba(32,40,26,0.14);
+    --ink:#1c2e33; --olive:#7a9eaa; --olive-deep:#5a8595; --olive-light:#9ab8c2;
+    --gold:#c85a2a; --gold-deep:#a04a22; --linen:#e8e2d8; --paper:#ede8df; --line:rgba(28,46,51,0.14);
     --danger:#a3392f;
   }
   *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
@@ -483,7 +483,7 @@
     cursor:pointer; transition:box-shadow .15s, transform .15s; flex-wrap:wrap;
   }
   .pedido-card:hover{ box-shadow:0 10px 24px -14px rgba(32,40,26,0.35); transform:translateY(-1px);}
-  .pedido-card.age-fresh{ border-left-color:#3a4527;}
+  .pedido-card.age-fresh{ border-left-color:#5a8595;}
   .pedido-card.age-recent{ border-left-color:#6b7d4a;}
   .pedido-card.age-week{ border-left-color:#9fae86;}
   .pedido-card.age-old{ border-left-color:#c7cdbb;}
@@ -574,7 +574,7 @@
 <!-- ===================== LOGIN ===================== -->
 <div id="loginView">
   <div class="login-card">
-    <img src="logo.png" alt="ProOlivas Chile">
+    <img src="logo.png" alt="CALALÓN Congelados">
     <h1>Panel de administración</h1>
     <p class="sub">Inicia sesión para gestionar tu sitio</p>
     <div class="error-msg" id="loginError"></div>
@@ -596,7 +596,7 @@
 <div id="dashboardView">
   <div class="admin-header">
     <div class="wrap">
-      <div class="brand"><img src="logo.png" alt="ProOlivas Chile"> Panel de administración</div>
+      <div class="brand"><img src="logo.png" alt="CALALÓN Congelados"> Panel de administración</div>
       <div style="display:flex; align-items:center;">
         <span class="who" id="whoLabel"></span>
         <button class="btn btn-outline" id="logoutBtn">Cerrar sesión</button>
@@ -627,7 +627,7 @@
         <div class="row-actions" style="display:flex; gap:10px; align-items:center;">
           <a id="catalogViewLink" href="#" target="_blank" rel="noopener" class="btn btn-outline" style="display:none;">Ver catálogo actual</a>
           <label class="file-input-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12M7 8l5-5 5 5M5 21h14" stroke="#20281a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12M7 8l5-5 5 5M5 21h14" stroke="#1c2e33" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span id="catalogUploadLabel">Subir catálogo (PDF)</span>
             <input type="file" id="catalogFileInput" accept="application/pdf">
           </label>
@@ -808,11 +808,11 @@
           </div>
           <div class="field">
             <label>Asunto del correo</label>
-            <input type="text" id="campaignSubject" placeholder="Ej: 20% de descuento esta semana en ProOliva">
+            <input type="text" id="campaignSubject" placeholder="Ej: 20% de descuento esta semana en CALALÓN">
           </div>
           <div class="field">
             <label>Título dentro del correo</label>
-            <input type="text" id="campaignHeadline" placeholder="Ej: ¡Aceitunas premium con 20% off!">
+            <input type="text" id="campaignHeadline" placeholder="Ej: ¡Camarones premium con 20% off!">
           </div>
           <div class="field">
             <label>Mensaje</label>
@@ -825,7 +825,7 @@
             </div>
             <div class="field">
               <label>Link del botón <span style="opacity:0.5; font-weight:400;">(opcional)</span></label>
-              <input type="text" id="campaignCtaLink" placeholder="https://proolivachile.github.io/ProOliva/productos.html">
+              <input type="text" id="campaignCtaLink" placeholder="https://calaloncongelados.github.io/CALALON/productos.html">
             </div>
           </div>
         </div>
@@ -971,7 +971,7 @@
           <div class="live-orders-grid" id="liveOrdersGrid"></div>
 
           <div class="live-inventory-panel">
-            <h3><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 7h18l-1.5 12.5a2 2 0 0 1-2 1.5H6.5a2 2 0 0 1-2-1.5L3 7Z" stroke="#c89b3c" stroke-width="1.6"/><path d="M8 7V5a4 4 0 0 1 8 0v2" stroke="#c89b3c" stroke-width="1.6"/></svg> Inventario total a preparar</h3>
+            <h3><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 7h18l-1.5 12.5a2 2 0 0 1-2 1.5H6.5a2 2 0 0 1-2-1.5L3 7Z" stroke="#c85a2a" stroke-width="1.6"/><path d="M8 7V5a4 4 0 0 1 8 0v2" stroke="#c85a2a" stroke-width="1.6"/></svg> Inventario total a preparar</h3>
             <div id="liveInventoryList"></div>
           </div>
         </div>
@@ -1295,7 +1295,7 @@
 
       <div class="field">
         <label>Nombre</label>
-        <input type="text" id="fieldName" required placeholder="Ej: Aceite de oliva 1 L">
+        <input type="text" id="fieldName" required placeholder="Ej: Camarón Ecuatoriano 1 Kg">
       </div>
 
       <div class="field">
@@ -1645,10 +1645,10 @@
 <script src="supabase-config.js"></script>
 <script>
   const CATEGORY_LABELS = {
-    'aceites': 'Aceites de oliva',
-    'aceitunas-mesa': 'Aceitunas de mesa',
-    'aceitunas-premium': 'Aceitunas premium',
-    'aceitunas-especiales': 'Especiales',
+    'aceites': 'Camarones',
+    'aceitunas-mesa': 'Camarones',
+    'aceitunas-premium': 'Pescados',
+    'aceitunas-especiales': 'Mariscos premium',
     'packs': 'Packs',
     'ofertas': 'Ofertas',
     'regalos': 'Regalar'
@@ -2184,7 +2184,7 @@
         <td class="td-plain">
           <div class="row-actions">
             <button class="icon-btn" title="Editar" onclick="openEditModal('${p.id}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4 15v5Z" stroke="#20281a" stroke-width="1.6"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4 15v5Z" stroke="#1c2e33" stroke-width="1.6"/></svg>
             </button>
             <button class="icon-btn" title="Borrar" onclick="deleteProduct('${p.id}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="#a3392f" stroke-width="1.6"/></svg>
@@ -2510,8 +2510,8 @@
 
   function estadoBadge(o){
     if (o.delivered) return '<span class="badge badge-on">Entregado</span>';
-    if (o.dispatched) return '<span class="badge" style="background:#f3e6c9; color:#9c7326;">Despachado</span>';
-    if (o.ready) return '<span class="badge" style="background:#e0e6d6; color:#55643b;">Preparado</span>';
+    if (o.dispatched) return '<span class="badge" style="background:#f3e6c9; color:#a04a22;">Despachado</span>';
+    if (o.ready) return '<span class="badge" style="background:#e0e6d6; color:#7a9eaa;">Preparado</span>';
     return '<span class="badge badge-off">Por preparar</span>';
   }
 
@@ -2574,7 +2574,7 @@
           <span class="pedido-card-status-time">${lastStatus.label} · ${lastStatus.at ? new Date(lastStatus.at).toLocaleString('es-CL', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit', hour12:false }) : '—'}</span>
           <div class="pedido-card-actions">
             <button class="icon-btn" title="Ver pedido" onclick="location.href='pedido.html?id=${o.id}'">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z" stroke="#20281a" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#20281a" stroke-width="1.6"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z" stroke="#1c2e33" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#1c2e33" stroke-width="1.6"/></svg>
             </button>
             <button class="icon-btn" title="Borrar" onclick="deleteOrder('${o.id}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="#a3392f" stroke-width="1.6"/></svg>
@@ -3051,7 +3051,7 @@
         <td class="td-plain">
           <div class="row-actions">
             <button class="icon-btn" title="Agregar como cliente" onclick="convertToCustomer('${w.id}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="#20281a" stroke-width="1.6"/><circle cx="9" cy="7" r="4" stroke="#20281a" stroke-width="1.6"/><path d="M19 8v6M22 11h-6" stroke="#20281a" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="#1c2e33" stroke-width="1.6"/><circle cx="9" cy="7" r="4" stroke="#1c2e33" stroke-width="1.6"/><path d="M19 8v6M22 11h-6" stroke="#1c2e33" stroke-width="1.6" stroke-linecap="round"/></svg>
             </button>
             <button class="icon-btn" title="Borrar" onclick="deleteWholesale('${w.id}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="#a3392f" stroke-width="1.6"/></svg>
@@ -3137,7 +3137,7 @@
         <td class="td-plain">
           <div class="row-actions">
             <button class="icon-btn" title="Editar" onclick="openEditCustomerModal('${c.id}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4 15v5Z" stroke="#20281a" stroke-width="1.6"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4 15v5Z" stroke="#1c2e33" stroke-width="1.6"/></svg>
             </button>
             <button class="icon-btn" title="Borrar" onclick="deleteCustomer('${c.id}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="#a3392f" stroke-width="1.6"/></svg>
@@ -3267,17 +3267,17 @@
     const ctaLink = document.getElementById('campaignCtaLink').value.trim();
 
     const paragraphs = body.split('\n').filter(p => p.trim()).map(p =>
-      `<p style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#20281a;">${escapeHtmlText(p)}</p>`
+      `<p style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#1c2e33;">${escapeHtmlText(p)}</p>`
     ).join('');
 
     return `
-      <div style="font-family:Arial, sans-serif; max-width:560px; margin:0 auto; background:#fbf9f2;">
+      <div style="font-family:Arial, sans-serif; max-width:560px; margin:0 auto; background:#ede8df;">
         ${campaignImageUrl ? `<img src="${campaignImageUrl}" alt="" style="width:100%; display:block;">` : ''}
         <div style="padding:28px 30px;">
-          ${headline ? `<h1 style="font-family:Arial, sans-serif; font-size:23px; color:#3a4527; margin:0 0 16px;">${escapeHtmlText(headline)}</h1>` : ''}
+          ${headline ? `<h1 style="font-family:Arial, sans-serif; font-size:23px; color:#5a8595; margin:0 0 16px;">${escapeHtmlText(headline)}</h1>` : ''}
           ${paragraphs || '<p style="opacity:0.5; font-size:14px;">Escribe el mensaje de tu campaña...</p>'}
-          ${ctaText && ctaLink ? `<a href="${ctaLink}" style="display:inline-block; margin-top:6px; background:#3a4527; color:#fbf9f2; padding:13px 26px; border-radius:6px; text-decoration:none; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:0.02em;">${escapeHtmlText(ctaText)}</a>` : ''}
-          <p style="opacity:0.5; font-size:11px; margin-top:32px;">Recibiste este correo porque te suscribiste en ProOliva. Si no quieres seguir recibiendo novedades, respóndenos y te sacamos de la lista.</p>
+          ${ctaText && ctaLink ? `<a href="${ctaLink}" style="display:inline-block; margin-top:6px; background:#5a8595; color:#ede8df; padding:13px 26px; border-radius:6px; text-decoration:none; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:0.02em;">${escapeHtmlText(ctaText)}</a>` : ''}
+          <p style="opacity:0.5; font-size:11px; margin-top:32px;">Recibiste este correo porque te suscribiste en CALALÓN. Si no quieres seguir recibiendo novedades, respóndenos y te sacamos de la lista.</p>
         </div>
       </div>
     `;
@@ -3605,7 +3605,7 @@
         labels: labels.map(l => new Date(l).toLocaleDateString('es-CL', { day: 'numeric', month: 'short' })),
         datasets: [{
           label: 'Ingresos', data: labels.map(l => buckets.get(l)),
-          borderColor: '#3a4527', backgroundColor: 'rgba(58,69,39,0.12)',
+          borderColor: '#5a8595', backgroundColor: 'rgba(58,69,39,0.12)',
           fill: true, tension: 0.3, pointRadius: 3
         }]
       },
@@ -3628,7 +3628,7 @@
 
     upsertChart('chartProducts', {
       type: 'bar',
-      data: { labels: sorted.map(s => s[0]), datasets: [{ label: 'Unidades vendidas', data: sorted.map(s => s[1]), backgroundColor: '#c89b3c' }] },
+      data: { labels: sorted.map(s => s[0]), datasets: [{ label: 'Unidades vendidas', data: sorted.map(s => s[1]), backgroundColor: '#c85a2a' }] },
       options: {
         indexAxis: 'y', responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false } },
@@ -3653,8 +3653,8 @@
       data: {
         labels: sorted.map(s => s[0]),
         datasets: [
-          { label: 'Productos', data: sorted.map(s => s[1].products), backgroundColor: '#55643b', stack: 'ingresos' },
-          { label: 'Envío', data: sorted.map(s => s[1].shipping), backgroundColor: '#c89b3c', stack: 'ingresos' }
+          { label: 'Productos', data: sorted.map(s => s[1].products), backgroundColor: '#7a9eaa', stack: 'ingresos' },
+          { label: 'Envío', data: sorted.map(s => s[1].shipping), backgroundColor: '#c85a2a', stack: 'ingresos' }
         ]
       },
       options: {
@@ -3675,7 +3675,7 @@
       type: 'bar',
       data: {
         labels: ['Pagados', 'Preparados', 'Despachados', 'Entregados'],
-        datasets: [{ data: [paid, ready, shipped, delivered], backgroundColor: ['#3a4527', '#8a9a66', '#c89b3c', '#9c7326'] }]
+        datasets: [{ data: [paid, ready, shipped, delivered], backgroundColor: ['#5a8595', '#9ab8c2', '#c85a2a', '#a04a22'] }]
       },
       options: {
         responsive: true, maintainAspectRatio: false,
@@ -3691,7 +3691,7 @@
 
     upsertChart('chartChannel', {
       type: 'doughnut',
-      data: { labels: ['Web (Webpay)', 'Manual (WhatsApp/llamada)'], datasets: [{ data: [web, manual], backgroundColor: ['#3a4527', '#c89b3c'] }] },
+      data: { labels: ['Web (Webpay)', 'Manual (WhatsApp/llamada)'], datasets: [{ data: [web, manual], backgroundColor: ['#5a8595', '#c85a2a'] }] },
       options: {
         responsive: true, maintainAspectRatio: false,
         plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${formatCLPShort(ctx.parsed)}` } } }
@@ -3711,7 +3711,7 @@
       type: 'doughnut',
       data: {
         labels: ['Chilexpress', 'Envío local', 'Sin definir'],
-        datasets: [{ data: [chilexpress, local, sinDefinir], backgroundColor: ['#3a4527', '#8a9a66', '#d8d3c4'] }]
+        datasets: [{ data: [chilexpress, local, sinDefinir], backgroundColor: ['#5a8595', '#9ab8c2', '#d8d3c4'] }]
       },
       options: { responsive: true, maintainAspectRatio: false }
     });
@@ -3722,7 +3722,7 @@
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
     doc.setTextColor(58, 69, 39);
-    doc.text('ProOliva', 40, 46);
+    doc.text('CALALÓN', 40, 46);
     doc.setFontSize(13);
     doc.setTextColor(20, 24, 18);
     doc.text(title, 40, 68);
@@ -3738,7 +3738,7 @@
   }
 
   function pdfFilename(prefix){
-    return `prooliva-${prefix}-${new Date().toISOString().slice(0, 10)}.pdf`;
+    return `calalon-${prefix}-${new Date().toISOString().slice(0, 10)}.pdf`;
   }
 
   function pdfTable(doc, startY, head, body, extra){
@@ -4405,7 +4405,7 @@
   document.getElementById('whatsappPaymentLinkBtn').addEventListener('click', () => {
     const link = document.getElementById('orderPaymentLinkInput').value;
     const phone = document.getElementById('orderCustPhone').value.trim().replace(/[^0-9]/g, '');
-    const message = encodeURIComponent(`Hola! Aquí está el link para pagar tu pedido en ProOliva: ${link}`);
+    const message = encodeURIComponent(`Hola! Aquí está el link para pagar tu pedido en CALALÓN: ${link}`);
     const waUrl = phone ? `https://wa.me/${phone.startsWith('56') ? phone : '56' + phone}?text=${message}` : `https://wa.me/?text=${message}`;
     window.open(waUrl, '_blank');
   });
@@ -4419,9 +4419,9 @@
     { key: 'fotopromo1', label: 'Foto promo 1', hint: 'Carrusel de promociones, debajo del banner', size: '1920 × 1080 px (16:9)', type: 'promo', aspect: '21/9' },
     { key: 'fotopromo2', label: 'Foto promo 2', hint: 'Carrusel de promociones, debajo del banner', size: '1920 × 1080 px (16:9)', type: 'promo', aspect: '21/9' },
     { key: 'fotopromo3', label: 'Foto promo 3', hint: 'Carrusel de promociones, debajo del banner', size: '1920 × 1080 px (16:9)', type: 'promo', aspect: '21/9' },
-    { key: 'aceitunas-mesa', label: 'Aceitunas de mesa', hint: 'Tarjeta de categoría en el inicio', size: '700 × 1000 px (vertical)', type: 'category', aspect: '310/460' },
-    { key: 'aceitunas-premium', label: 'Aceitunas premium', hint: 'Tarjeta de categoría en el inicio', size: '900 × 950 px (casi cuadrada)', type: 'category', aspect: '435/460' },
-    { key: 'especiales', label: 'Especiales', hint: 'Tarjeta de categoría en el inicio', size: '700 × 500 px (horizontal)', type: 'category', aspect: '310/220' },
+    { key: 'aceitunas-mesa', label: 'Camarones', hint: 'Tarjeta de categoría en el inicio', size: '700 × 1000 px (vertical)', type: 'category', aspect: '310/460' },
+    { key: 'aceitunas-premium', label: 'Pescados', hint: 'Tarjeta de categoría en el inicio', size: '900 × 950 px (casi cuadrada)', type: 'category', aspect: '435/460' },
+    { key: 'especiales', label: 'Mariscos premium', hint: 'Tarjeta de categoría en el inicio', size: '700 × 500 px (horizontal)', type: 'category', aspect: '310/220' },
     { key: 'packs', label: 'Venta por mayor', hint: 'Tarjeta de categoría — enlaza a ventas-mayor.html por defecto', size: '700 × 500 px (horizontal)', type: 'category', aspect: '310/220' }
   ];
   let siteImagesLoaded = false;
@@ -4486,7 +4486,7 @@
 
         <div class="field" style="margin-top:14px;">
           <label>Título sobre la imagen</label>
-          <input type="text" id="siteImgTitle-${slot.key}" placeholder="Ej: ACEITUNAS DE MESA">
+          <input type="text" id="siteImgTitle-${slot.key}" placeholder="Ej: CAMARONES">
         </div>
         <div class="field">
           <label>Enlace al hacer clic <span style="opacity:0.5; font-weight:400;">(opcional)</span></label>
@@ -4549,7 +4549,7 @@
     }).join('');
 
     container.innerHTML = `
-      <div class="section-fixed-row"><span class="lock">🔒</span> Banner principal ("Bienvenido a ProOliva") — siempre primero</div>
+      <div class="section-fixed-row"><span class="lock">🔒</span> Banner principal ("Bienvenido a CALALÓN") — siempre primero</div>
       ${rows}
       <div class="section-fixed-row"><span class="lock">🔒</span> Suscríbete a nuestras ofertas — siempre fijo, cerca del pie de página</div>
     `;
@@ -4572,16 +4572,16 @@
 
   // ---------- Paleta de colores ----------
   const COLOR_FIELDS = [
-    { key: 'ink', label: 'Ink (texto principal)', fallback: '#20281a' },
-    { key: 'olive', label: 'Olive', fallback: '#55643b' },
-    { key: 'olive_deep', label: 'Olive deep', fallback: '#3a4527' },
-    { key: 'olive_light', label: 'Olive light', fallback: '#8a9a66' },
-    { key: 'gold', label: 'Gold', fallback: '#c89b3c' },
-    { key: 'gold_deep', label: 'Gold deep', fallback: '#9c7326' },
-    { key: 'aubergine', label: 'Aubergine', fallback: '#3d2b2e' },
-    { key: 'coffee', label: 'Coffee', fallback: '#3f2e20' },
-    { key: 'linen', label: 'Linen (fondo)', fallback: '#f3eee0' },
-    { key: 'paper', label: 'Paper (fondo claro)', fallback: '#fbf9f2' }
+    { key: 'ink', label: 'Ink (texto principal)', fallback: '#1c2e33' },
+    { key: 'olive', label: 'Olive', fallback: '#7a9eaa' },
+    { key: 'olive_deep', label: 'Olive deep', fallback: '#5a8595' },
+    { key: 'olive_light', label: 'Olive light', fallback: '#9ab8c2' },
+    { key: 'gold', label: 'Gold', fallback: '#c85a2a' },
+    { key: 'gold_deep', label: 'Gold deep', fallback: '#a04a22' },
+    { key: 'aubergine', label: 'Aubergine', fallback: '#1e3a42' },
+    { key: 'coffee', label: 'Coffee', fallback: '#2d4a52' },
+    { key: 'linen', label: 'Linen (fondo)', fallback: '#e8e2d8' },
+    { key: 'paper', label: 'Paper (fondo claro)', fallback: '#ede8df' }
   ];
   let siteColorValues = {};
   let siteColorsLoaded = false;
@@ -4651,8 +4651,8 @@
       return `
         <div class="hpm-cat-grid">
           <div class="hpm-cat-row">
-            ${tile('aceitunas-mesa', 'Aceitunas de mesa')}
-            ${tile('aceitunas-premium', 'Aceitunas premium')}
+            ${tile('aceitunas-mesa', 'Camarones')}
+            ${tile('aceitunas-premium', 'Pescados')}
             <div class="hpm-cat-split">
               ${tile('especiales', 'Especiales')}
               ${tile('packs', 'Venta por mayor')}
@@ -4691,12 +4691,12 @@
     container.setAttribute('style', varStyle);
     container.innerHTML = `
       <div class="hpm-block hpm-header">
-        <span>ProOliva</span>
+        <span>CALALÓN</span>
         <span class="hpm-header-dots"><span></span><span></span><span></span></span>
       </div>
       <div class="hpm-hero">
         <span class="hpm-lock-tag">🔒 Banner principal</span>
-        <div class="hpm-sub">Bienvenido a ProOliva</div>
+        <div class="hpm-sub">Bienvenido a CALALÓN</div>
       </div>
       ${sectionsHtml}
       <div class="hpm-subscribe">🔒 Suscríbete a nuestras ofertas</div>
@@ -5133,7 +5133,7 @@
           <td class="td-plain">
             <div class="row-actions">
               <button class="icon-btn" title="Editar" onclick="openEditPromoModal('${p.id}')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4 15v5Z" stroke="#20281a" stroke-width="1.6"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18.5 9.5a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4 15v5Z" stroke="#1c2e33" stroke-width="1.6"/></svg>
               </button>
               <button class="icon-btn" title="Borrar" onclick="deletePromoCode('${p.id}')">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="#a3392f" stroke-width="1.6"/></svg>
