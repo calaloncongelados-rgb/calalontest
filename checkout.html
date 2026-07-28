@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar compra — ProOliva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20281a; --olive:#55643b; --olive-deep:#3a4527; --gold:#c89b3c; --gold-deep:#9c7326;
+    --coffee:#3f2e20; --linen:#f3eee0; --paper:#fbf9f2; --line:rgba(32,40,26,0.14); --danger:#a3392f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ font-family:'Public Sans', sans-serif; background:var(--linen); color:var(--ink); line-height:1.6;}
+  h1,h2,h3{ font-family:'Archivo', sans-serif; font-weight:700; color:var(--ink);}
+  a{ color:inherit; text-decoration:none;}
+  button, input, select{ font-family:'Public Sans', sans-serif;}
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 24px;}
+
+  .topbar{ background:var(--coffee); color:var(--paper); font-size:12.5px; padding:9px 0; text-align:center; text-transform:uppercase; letter-spacing:0.05em; font-weight:600;}
+  header{ background:var(--paper); border-bottom:1px solid var(--line); padding:18px 0;}
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; max-width:1120px;}
+  .logo-mark{ height:40px;}
+  .back-link{ font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:6px;}
+
+  .checkout-hero{ padding:36px 0 8px; text-align:center;}
+  .checkout-hero h1{ font-size:28px;}
+
+  .checkout-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:32px; padding:32px 0 80px; align-items:start;}
+  .panel{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:26px 28px; margin-bottom:20px;}
+  .panel h2{ font-size:16px; margin-bottom:16px;}
+
+  .field{ margin-bottom:14px;}
+  .field label{ display:block; font-size:12.5px; font-weight:600; margin-bottom:6px; color:var(--olive-deep);}
+  .field input, .field select{ width:100%; border:1.5px solid var(--line); border-radius:6px; padding:11px 14px; font-size:14px; background:#fff; color:var(--ink); outline:none;}
+  .field input:focus, .field select:focus{ border-color:var(--olive-deep);}
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 22px; border-radius:6px; font-size:13.5px; font-weight:700; letter-spacing:0.02em; text-transform:uppercase; cursor:pointer; border:1px solid transparent; width:100%; transition:transform .15s, background .15s, opacity .15s;}
+  .btn:hover{ transform:translateY(-1px);}
+  .btn:disabled{ opacity:0.5; cursor:not-allowed; transform:none;}
+  .btn-outline{ background:transparent; border-color:var(--line); color:var(--ink);}
+  .btn-outline:hover{ border-color:var(--olive-deep);}
+  .btn-primary{ background:var(--olive-deep); color:var(--paper);}
+  .btn-primary:hover{ background:var(--ink);}
+
+  .cart-line{ display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); align-items:center;}
+  .cart-line img{ width:52px; height:52px; border-radius:6px; object-fit:cover; background:var(--linen);}
+  .cart-line-info{ flex:1; min-width:0;}
+  .cart-line-info h4{ font-size:13.5px; font-weight:600; margin-bottom:2px;}
+  .cart-line-info span{ font-size:12px; opacity:0.6;}
+  .cart-line-price{ font-family:'Archivo',sans-serif; font-weight:700; font-size:13.5px; color:var(--olive-deep); white-space:nowrap;}
+
+  .totals-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:8px 0;}
+  .promo-code-row{ display:flex; gap:8px; margin:14px 0; }
+  .promo-code-row input{ flex:1; border:1.5px solid var(--line); border-radius:6px; padding:10px 12px; font-size:13px; background:var(--paper);}
+  .promo-code-row .btn{ width:auto; padding:0 18px;}
+  .promo-code-msg{ font-size:12.5px; padding:8px 10px; border-radius:6px; margin-bottom:8px;}
+  .promo-code-msg.ok{ background:#e4ede0; color:var(--olive-deep);}
+  .promo-code-msg.error{ background:#fbe9e7; color:var(--danger);}
+  #discountRow{ color:var(--olive-deep); font-weight:600;}
+  #promoCodeLabel{ font-weight:400; opacity:0.6; font-size:11.5px; margin-left:6px;}
+  .totals-row.grand{ border-top:1px solid var(--line); margin-top:8px; padding-top:14px; font-size:17px; font-weight:700;}
+  .totals-row.grand span:last-child{ color:var(--olive-deep); font-family:'Archivo',sans-serif;}
+
+  .shipping-quote-result{ background:var(--linen); border-radius:8px; padding:14px 16px; margin-top:14px; font-size:13.5px; display:none;}
+  .free-shipping-banner{ background:#e4ede0; border:1.5px solid var(--olive-deep); color:var(--olive-deep); font-size:13.5px; font-weight:600; padding:12px 16px; border-radius:8px; margin-bottom:14px;}
+  .local-delivery-banner{ background:#eef3e6; border:1.5px solid var(--olive); color:var(--olive-deep); font-size:13.5px; font-weight:600; padding:12px 16px; border-radius:8px; margin-bottom:14px;}
+  .shipping-quote-result.show{ display:block;}
+  .shipping-quote-result b{ color:var(--olive-deep);}
+
+  .error-msg{ background:#fbe9e7; border:1px solid var(--danger); color:var(--danger); font-size:13px; padding:10px 12px; border-radius:6px; margin-top:12px; display:none;}
+  .empty-cart-msg{ text-align:center; padding:60px 20px; opacity:0.6;}
+
+  .test-mode-banner{ background:#fff4d6; border:1px solid var(--gold); color:#6b4e00; font-size:12.5px; padding:12px 16px; border-radius:8px; margin-bottom:20px; display:flex; gap:10px; align-items:flex-start;}
+
+  .doc-type-toggle{ display:flex; gap:10px;}
+  .doc-type-btn{ flex:1; padding:12px; border:1.5px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); font-size:13.5px; font-weight:600; cursor:pointer; transition:all .15s;}
+  .doc-type-btn:hover{ border-color:var(--olive-deep);}
+  .doc-type-btn.active{ border-color:var(--olive-deep); background:var(--olive-deep); color:var(--paper);}
+
+  @media (max-width:800px){ .checkout-grid{ grid-template-columns:1fr;} .field-row{ grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">Despacho gratis en Viña del Mar, por ventas sobre $40.000</div>
+
+<header>
+  <div class="wrap">
+    <img class="logo-mark" src="logo.png" alt="ProOlivas Chile">
+    <a class="back-link" href="productos.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#3a4527" stroke-width="2" stroke-linecap="round"/></svg>
+      Volver al catálogo
+    </a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="checkout-hero">
+    <h1>Finalizar compra</h1>
+  </div>
+
+  <div class="test-mode-banner">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0; margin-top:2px;"><path d="M12 9v4M12 17h.01" stroke="#6b4e00" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#6b4e00" stroke-width="1.6"/></svg>
+    <span><b>Modo de prueba:</b> el pago corre en el ambiente de integración de Transbank — no se cobra dinero real. Usa la tarjeta de prueba <b>4051 8856 0044 6623</b>, cualquier fecha futura y CVV <b>123</b>.</span>
+  </div>
+
+  <div id="checkoutContent">
+    <div class="checkout-grid">
+      <div>
+        <div class="panel">
+          <h2>Datos de contacto y envío</h2>
+          <div class="field">
+            <label>Nombre completo</label>
+            <input type="text" id="custName" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Correo</label>
+              <input type="email" id="custEmail" required>
+            </div>
+            <div class="field">
+              <label>Teléfono</label>
+              <input type="tel" id="custPhone" placeholder="+56 9 ...">
+            </div>
+          </div>
+          <div class="field">
+            <label>Dirección</label>
+            <input type="text" id="custAddress" placeholder="Calle, número, depto/casa" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Región</label>
+              <select id="custRegion">
+                <option>Valparaíso</option>
+                <option>Metropolitana</option>
+                <option>Biobío</option>
+                <option>La Araucanía</option>
+                <option>Los Lagos</option>
+                <option>Coquimbo</option>
+                <option>O'Higgins</option>
+                <option>Maule</option>
+                <option>Ñuble</option>
+                <option>Antofagasta</option>
+                <option>Otra región</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Comuna</label>
+              <input type="text" id="custComuna" placeholder="Ej: Viña del Mar" required>
+            </div>
+          </div>
+
+          <div class="local-delivery-banner" id="localDeliveryBanner" style="display:none;"></div>
+          <div class="free-shipping-banner" id="freeShippingBanner" style="display:none;">
+            🎉 ¡Tu pedido califica para <b>envío gratis</b>!
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-outline" id="quoteShippingBtn" type="button" style="flex:1;">Cotizar envío con Chilexpress</button>
+            <button class="btn btn-outline" id="quoteBlueExpressBtn" type="button" style="flex:1;" disabled title="Próximamente">Blue Express (próximamente)</button>
+          </div>
+          <div class="shipping-quote-result" id="shippingQuoteResult"></div>
+          <div class="error-msg" id="shippingError"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Documento tributario</h2>
+          <div class="doc-type-toggle">
+            <button type="button" class="doc-type-btn active" data-doc="boleta">Boleta</button>
+            <button type="button" class="doc-type-btn" data-doc="factura">Factura</button>
+          </div>
+          <div id="facturaFields" style="display:none; margin-top:16px;">
+            <div class="field">
+              <label>RUT de la empresa</label>
+              <input type="text" id="billingRut" placeholder="Ej: 76.123.456-7">
+            </div>
+            <div class="field">
+              <label>Razón social</label>
+              <input type="text" id="billingBusinessName" placeholder="Nombre legal de la empresa">
+            </div>
+            <div class="field">
+              <label>Giro</label>
+              <input type="text" id="billingGiro" placeholder="Ej: Venta al por menor de alimentos">
+            </div>
+          </div>
+          <div class="error-msg" id="billingError"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h2>Tu pedido</h2>
+          <div id="cartLines"></div>
+
+          <div class="promo-code-row">
+            <input type="text" id="promoCodeInput" placeholder="Código promocional" style="text-transform:uppercase;">
+            <button type="button" class="btn btn-outline" id="applyPromoBtn">Aplicar</button>
+          </div>
+          <div class="promo-code-msg" id="promoCodeMsg" style="display:none;"></div>
+
+          <div class="totals-row"><span>Subtotal</span><span id="subtotalValue">$0</span></div>
+          <div class="totals-row" id="discountRow" style="display:none;"><span>Descuento<span id="promoCodeLabel"></span></span><span id="discountValue">-$0</span></div>
+          <div class="totals-row"><span>Envío</span><span id="shippingValue">Por cotizar</span></div>
+          <div class="totals-row grand"><span>Total</span><span id="totalValue">$0</span></div>
+        </div>
+
+        <button class="btn btn-primary" id="payWebpayBtn" disabled>Pagar con Webpay</button>
+        <button class="btn btn-primary" id="payMercadoPagoBtn" disabled style="background:#009ee3; margin-top:10px;">Pagar con Mercado Pago</button>
+        <div class="error-msg" id="payError"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-cart-msg" id="emptyCartMsg" style="display:none;">
+    <h2>Tu carrito está vacío</h2>
+    <p style="margin:10px 0 20px; opacity:0.7;">Agrega productos antes de pagar.</p>
+    <a class="btn btn-primary" style="width:auto; display:inline-flex;" href="productos.html">Ver catálogo</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="cart.js"></script>
+<script>
+  const cart = getCart();
+  let shippingCost = 0;
+  let shippingQuoted = false;
+  let shippingSettings = null;
+  let freeShippingZones = [];
+  let selectedShippingMethod = null;
+
+  if (cart.length === 0){
+    document.getElementById('checkoutContent').style.display = 'none';
+    document.getElementById('emptyCartMsg').style.display = 'block';
+  } else {
+    renderCheckout();
+    loadShippingSettings();
+  }
+
+  async function loadShippingSettings(){
+    const { data } = await supabaseClient.from('shipping_settings').select('*').eq('id', 1).single();
+    shippingSettings = data || {
+      free_shipping_enabled: false, local_delivery_fee: 0,
+      chilexpress_enabled: true, blue_express_enabled: false, local_enabled: true,
+      local_delivery_region: null, local_delivery_comunas: ''
+    };
+
+    const { data: zones } = await supabaseClient.from('free_shipping_zones').select('*');
+    freeShippingZones = zones || [];
+
+    if (!shippingSettings.chilexpress_enabled){
+      document.getElementById('quoteShippingBtn').style.display = 'none';
+    }
+    const blueBtn = document.getElementById('quoteBlueExpressBtn');
+    if (shippingSettings.blue_express_enabled){
+      blueBtn.disabled = false;
+      blueBtn.title = '';
+      blueBtn.textContent = 'Cotizar con Blue Express';
+    }
+
+    evaluateShipping();
+  }
+
+  function normalizeText(str){
+    return (str || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  // Revisa las reglas automáticas de envío con los datos actuales del formulario:
+  // 1) ¿La comuna tiene envío gratis configurado Y el pedido alcanza su mínimo? → gratis.
+  // 2) Si no, ¿está en la región/comunas configuradas como zona de transporte propio? → se cobra la tarifa fija configurada (NO es gratis por defecto).
+  // 3) Si no, se cotiza normal con Chilexpress/Blue Express.
+  // Devuelve true si alguna regla ya dejó todo listo para pagar (sin necesitar cotizar).
+  function evaluateShipping(){
+    const freeBanner = document.getElementById('freeShippingBanner');
+    const localBanner = document.getElementById('localDeliveryBanner');
+    const comuna = document.getElementById('custComuna').value.trim();
+    const region = document.getElementById('custRegion').value;
+    const subtotal = cartTotal(cart);
+    const normComuna = normalizeText(comuna);
+
+    freeBanner.style.display = 'none';
+    localBanner.style.display = 'none';
+
+    const localComunas = (shippingSettings?.local_delivery_comunas || '').split(',').map(c => normalizeText(c)).filter(Boolean);
+    const isLocalDeliveryZone = comuna && shippingSettings?.local_delivery_region && region === shippingSettings.local_delivery_region && localComunas.includes(normComuna);
+
+    const freeZone = shippingSettings?.free_shipping_enabled
+      ? freeShippingZones.find(z => normalizeText(z.comuna) === normComuna)
+      : null;
+    const qualifiesFree = comuna && freeZone && subtotal >= (freeZone.min_amount || 0);
+
+    if (qualifiesFree){
+      selectedShippingMethod = isLocalDeliveryZone ? 'local' : selectedShippingMethod;
+      shippingCost = 0;
+      shippingQuoted = true;
+      document.getElementById('shippingValue').textContent = 'Gratis';
+      document.getElementById('shippingQuoteResult').classList.remove('show');
+      document.getElementById('shippingError').style.display = 'none';
+      if (isLocalDeliveryZone){
+        document.getElementById('quoteShippingBtn').style.display = 'none';
+        document.getElementById('quoteBlueExpressBtn').style.display = 'none';
+        localBanner.innerHTML = '🚐 Este pedido se despacha con <b>transporte propio de ProOliva</b> — sin costo de envío.';
+        localBanner.style.display = 'block';
+      } else {
+        freeBanner.style.display = 'block';
+      }
+      updateTotals();
+      document.getElementById('payWebpayBtn').disabled = false;
+      document.getElementById('payMercadoPagoBtn').disabled = false;
+      return true;
+    }
+
+    if (isLocalDeliveryZone){
+      selectedShippingMethod = 'local';
+      shippingCost = shippingSettings?.local_delivery_fee || 0;
+      shippingQuoted = true;
+      document.getElementById('shippingValue').textContent = formatCLP(shippingCost);
+      document.getElementById('shippingQuoteResult').classList.remove('show');
+      document.getElementById('shippingError').style.display = 'none';
+      document.getElementById('quoteShippingBtn').style.display = 'none';
+      document.getElementById('quoteBlueExpressBtn').style.display = 'none';
+      localBanner.innerHTML = `🚐 Este pedido se despacha con <b>transporte propio de ProOliva</b> — costo de envío: ${formatCLP(shippingCost)}.`;
+      localBanner.style.display = 'block';
+      updateTotals();
+      document.getElementById('payWebpayBtn').disabled = false;
+      document.getElementById('payMercadoPagoBtn').disabled = false;
+      return true;
+    }
+
+    // Fuera de la zona de transporte propio y sin envío gratis: restaurar los botones de cotización normales
+    if (shippingSettings){
+      document.getElementById('quoteShippingBtn').style.display = shippingSettings.chilexpress_enabled ? '' : 'none';
+    }
+    document.getElementById('quoteBlueExpressBtn').style.display = '';
+    return false;
+  }
+
+  document.getElementById('custComuna').addEventListener('blur', evaluateShipping);
+  document.getElementById('custRegion').addEventListener('change', evaluateShipping);
+
+  document.getElementById('quoteBlueExpressBtn').addEventListener('click', () => {
+    alert('Blue Express todavía está en preparación — pronto vas a poder cotizar y despachar con ellos también.');
+  });
+
+  function renderCheckout(){
+    document.getElementById('cartLines').innerHTML = cart.map(i => `
+      <div class="cart-line">
+        <img src="${i.image_url || ''}" alt="${i.name}">
+        <div class="cart-line-info">
+          <h4>${i.name}</h4>
+          <span>${i.qty} × ${formatCLP(i.price)}</span>
+        </div>
+        <div class="cart-line-price">${formatCLP(i.price * i.qty)}</div>
+      </div>
+    `).join('');
+    updateTotals();
+  }
+
+  let appliedPromo = null; // { code, discount_type, discount_value, ... }
+  let discountAmount = 0;
+
+  function updateTotals(){
+    const subtotal = cartTotal(cart);
+    document.getElementById('subtotalValue').textContent = formatCLP(subtotal);
+
+    discountAmount = 0;
+    if (appliedPromo){
+      discountAmount = appliedPromo.discount_type === 'percentage'
+        ? Math.round(subtotal * (appliedPromo.discount_value / 100))
+        : Math.min(appliedPromo.discount_value, subtotal);
+    }
+
+    const discountRow = document.getElementById('discountRow');
+    if (discountAmount > 0){
+      document.getElementById('discountValue').textContent = '-' + formatCLP(discountAmount);
+      document.getElementById('promoCodeLabel').textContent = `(${appliedPromo.code})`;
+      discountRow.style.display = 'flex';
+    } else {
+      discountRow.style.display = 'none';
+    }
+
+    const total = Math.max(0, subtotal - discountAmount + shippingCost);
+    document.getElementById('totalValue').textContent = formatCLP(total);
+  }
+
+  async function applyPromoCode(){
+    const input = document.getElementById('promoCodeInput');
+    const msgEl = document.getElementById('promoCodeMsg');
+    const btn = document.getElementById('applyPromoBtn');
+    const code = input.value.trim().toUpperCase();
+    msgEl.style.display = 'none';
+
+    if (!code){
+      msgEl.textContent = 'Escribe un código.';
+      msgEl.className = 'promo-code-msg error';
+      msgEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Validando...';
+
+    try {
+      const { data: promo, error } = await supabaseClient
+        .from('promo_codes')
+        .select('*')
+        .eq('code', code)
+        .eq('active', true)
+        .single();
+
+      if (error || !promo) throw new Error('Ese código no existe o ya no está activo.');
+
+      const now = new Date();
+      if (promo.valid_from && now < new Date(promo.valid_from)) throw new Error('Ese código todavía no está vigente.');
+      if (promo.valid_until && now > new Date(promo.valid_until + 'T23:59:59')) throw new Error('Ese código ya venció.');
+      if (promo.max_uses && promo.times_used >= promo.max_uses) throw new Error('Ese código ya alcanzó su límite de usos.');
+
+      const subtotal = cartTotal(cart);
+      if (subtotal < (promo.min_purchase_amount || 0)){
+        throw new Error(`Este código requiere una compra mínima de ${formatCLP(promo.min_purchase_amount)}.`);
+      }
+
+      appliedPromo = promo;
+      updateTotals();
+
+      const discountLabel = promo.discount_type === 'percentage' ? `${promo.discount_value}%` : formatCLP(promo.discount_value);
+      msgEl.textContent = `¡Código aplicado! ${discountLabel} de descuento.`;
+      msgEl.className = 'promo-code-msg ok';
+      msgEl.style.display = 'block';
+      input.disabled = true;
+      btn.disabled = false;
+      btn.textContent = 'Quitar';
+    } catch (err){
+      appliedPromo = null;
+      updateTotals();
+      msgEl.textContent = err.message;
+      msgEl.className = 'promo-code-msg error';
+      msgEl.style.display = 'block';
+      input.disabled = false;
+      btn.disabled = false;
+      btn.textContent = 'Aplicar';
+    }
+  }
+
+  function removePromoCode(){
+    appliedPromo = null;
+    const input = document.getElementById('promoCodeInput');
+    const btn = document.getElementById('applyPromoBtn');
+    input.disabled = false;
+    input.value = '';
+    document.getElementById('promoCodeMsg').style.display = 'none';
+    btn.textContent = 'Aplicar';
+    updateTotals();
+  }
+
+  document.getElementById('applyPromoBtn').addEventListener('click', () => {
+    if (appliedPromo){
+      removePromoCode();
+    } else {
+      applyPromoCode();
+    }
+  });
+
+  document.getElementById('quoteShippingBtn').addEventListener('click', async () => {
+    const region = document.getElementById('custRegion').value;
+    const comuna = document.getElementById('custComuna').value.trim();
+    const errorEl = document.getElementById('shippingError');
+    const resultEl = document.getElementById('shippingQuoteResult');
+    errorEl.style.display = 'none';
+    resultEl.classList.remove('show');
+
+    if (!comuna){
+      errorEl.textContent = 'Escribe la comuna de destino primero.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    if (evaluateShipping()) return; // ya resuelto (transporte propio o envío gratis), no hace falta cotizar con Chilexpress
+
+    const btn = document.getElementById('quoteShippingBtn');
+    btn.disabled = true;
+    btn.textContent = 'Cotizando...';
+
+    const totalWeight = cart.reduce((sum, i) => sum + ((i.weight_kg || 0.5) * i.qty), 0);
+    const subtotal = cartTotal(cart);
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/chilexpress-quote`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'apikey': SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({ region, comuna, pesoKg: totalWeight || 1, valorDeclarado: subtotal })
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error){
+        throw new Error(data.error || 'No se pudo cotizar el envío.');
+      }
+      if (!data.options || data.options.length === 0){
+        throw new Error('Chilexpress no devolvió opciones de envío para esta comuna.');
+      }
+
+      resultEl.innerHTML = '<b>Elige el servicio de envío:</b>' +
+        data.options.map((o, i) => `
+          <label style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); cursor:pointer;">
+            <input type="radio" name="shippingOption" value="${o.price}" ${i === 0 ? 'checked' : ''} style="width:auto;">
+            <span style="flex:1;">${o.service}</span>
+            <b>${formatCLP(o.price)}</b>
+          </label>
+        `).join('');
+      resultEl.classList.add('show');
+
+      resultEl.querySelectorAll('input[name="shippingOption"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          shippingCost = parseInt(e.target.value, 10);
+          document.getElementById('shippingValue').textContent = formatCLP(shippingCost);
+          updateTotals();
+        });
+      });
+
+      // Selecciona la primera opción por defecto
+      shippingCost = data.options[0].price;
+      shippingQuoted = true;
+      selectedShippingMethod = 'chilexpress';
+      document.getElementById('shippingValue').textContent = formatCLP(shippingCost);
+      updateTotals();
+      document.getElementById('payWebpayBtn').disabled = false;
+      document.getElementById('payMercadoPagoBtn').disabled = false;
+
+    } catch (err) {
+      errorEl.textContent = 'No se pudo cotizar el envío: ' + err.message;
+      errorEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Cotizar envío con Chilexpress';
+    }
+  });
+
+  let documentType = 'boleta';
+  document.querySelectorAll('.doc-type-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      documentType = btn.dataset.doc;
+      document.querySelectorAll('.doc-type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('facturaFields').style.display = documentType === 'factura' ? 'block' : 'none';
+      document.getElementById('billingError').style.display = 'none';
+    });
+  });
+
+  function validateCheckoutForm(){
+    const name = document.getElementById('custName').value.trim();
+    const email = document.getElementById('custEmail').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+    const comuna = document.getElementById('custComuna').value.trim();
+    const errorEl = document.getElementById('payError');
+    errorEl.style.display = 'none';
+
+    if (!name || !email || !address || !comuna){
+      errorEl.textContent = 'Completa nombre, correo, dirección y comuna antes de pagar.';
+      errorEl.style.display = 'block';
+      return null;
+    }
+
+    const billingError = document.getElementById('billingError');
+    billingError.style.display = 'none';
+    let billingRut = '', billingBusinessName = '', billingGiro = '';
+    if (documentType === 'factura'){
+      billingRut = document.getElementById('billingRut').value.trim();
+      billingBusinessName = document.getElementById('billingBusinessName').value.trim();
+      billingGiro = document.getElementById('billingGiro').value.trim();
+      if (!billingRut || !billingBusinessName || !billingGiro){
+        billingError.textContent = 'Para factura necesitamos el RUT de la empresa, la razón social y el giro.';
+        billingError.style.display = 'block';
+        return null;
+      }
+    }
+
+    const subtotal = cartTotal(cart);
+    const total = Math.max(0, subtotal - discountAmount + shippingCost);
+
+    return {
+      subtotal, total,
+      shippingMethod: selectedShippingMethod,
+      promoCode: appliedPromo ? appliedPromo.code : null,
+      discountAmount,
+      shipping: {
+        name, email,
+        phone: document.getElementById('custPhone').value.trim(),
+        address, comuna,
+        region: document.getElementById('custRegion').value
+      },
+      billing: {
+        documentType,
+        rut: documentType === 'factura' ? billingRut : null,
+        businessName: documentType === 'factura' ? billingBusinessName : null,
+        giro: documentType === 'factura' ? billingGiro : null
+      }
+    };
+  }
+
+  document.getElementById('payWebpayBtn').addEventListener('click', async () => {
+    const formData = validateCheckoutForm();
+    if (!formData) return;
+
+    const payBtn = document.getElementById('payWebpayBtn');
+    const errorEl = document.getElementById('payError');
+    payBtn.disabled = true;
+    payBtn.textContent = 'Conectando con Webpay...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/webpay-create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'apikey': SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({ items: cart, subtotal: formData.subtotal, shippingCost, shippingMethod: formData.shippingMethod, promoCode: formData.promoCode, discountAmount: formData.discountAmount, total: formData.total, shipping: formData.shipping, billing: formData.billing })
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error){
+        throw new Error(data.error || 'No se pudo iniciar el pago.');
+      }
+
+      // Redirección estándar Webpay Plus: un form POST autoenviado con token_ws
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = data.url;
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'token_ws';
+      input.value = data.token;
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+
+    } catch (err) {
+      errorEl.textContent = 'No se pudo conectar con Webpay: ' + err.message + ' — revisa que webpay-create esté desplegada en Supabase.';
+      errorEl.style.display = 'block';
+      payBtn.disabled = false;
+      payBtn.textContent = 'Pagar con Webpay';
+    }
+  });
+
+  document.getElementById('payMercadoPagoBtn').addEventListener('click', async () => {
+    const formData = validateCheckoutForm();
+    if (!formData) return;
+
+    const payBtn = document.getElementById('payMercadoPagoBtn');
+    const errorEl = document.getElementById('payError');
+    payBtn.disabled = true;
+    payBtn.textContent = 'Conectando con Mercado Pago...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/mercadopago-create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'apikey': SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({ items: cart, subtotal: formData.subtotal, shippingCost, shippingMethod: formData.shippingMethod, promoCode: formData.promoCode, discountAmount: formData.discountAmount, total: formData.total, shipping: formData.shipping, billing: formData.billing })
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error){
+        throw new Error(data.error || 'No se pudo iniciar el pago.');
+      }
+
+      // Mercado Pago es un simple redirect (no necesita el truco del form POST de Webpay)
+      window.location.href = data.initPoint;
+
+    } catch (err) {
+      errorEl.textContent = 'No se pudo conectar con Mercado Pago: ' + err.message + ' — revisa que mercadopago-create esté desplegada en Supabase.';
+      errorEl.style.display = 'block';
+      payBtn.disabled = false;
+      payBtn.textContent = 'Pagar con Mercado Pago';
+    }
+  });
+</script>
+
+</body>
+</html>
