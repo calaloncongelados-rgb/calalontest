@@ -12,7 +12,7 @@
 // hecho de que esta clave esté oculta.
 // ============================================================
 
-const SUPABASE_URL = 'https://wunbwqzqhteblxabpkdn.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_prXCzf__xayLzRYUf86lWA_ONnrx3qx';
+const SUPABASE_URL = 'https://rcgqwxmxhqbqxsdhnrkm.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZ3F3eG14aHFicXhzZGhucmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyMTAxMzEsImV4cCI6MjEwMDc4NjEzMX0.E0rofOrvBFyZ_sntfPkqHhJfcWHitFeJw2DG9DdYEvY';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
