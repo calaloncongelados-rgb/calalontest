@@ -172,7 +172,7 @@
 
   /* ---------- franja de envío gratis (scroll infinito, estilo catch.cl pero con letra más amigable) ---------- */
   .shipping-marquee{ background:var(--gold); overflow:hidden; height:34px; display:flex; align-items:center;}
-  .shipping-marquee-track{ display:inline-flex; width:max-content; animation:shipping-marquee-scroll 28s linear infinite; transform:translate(0px);}
+  .shipping-marquee-track{ display:inline-flex; flex-shrink:0; width:max-content; animation:shipping-marquee-scroll 28s linear infinite; transform:translate(0px);}
   .shipping-marquee-item{ display:inline-block; white-space:nowrap; color:#faf2e4; font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; text-transform:none; padding-right:22px;}
   @keyframes shipping-marquee-scroll{ 0%{ transform:translate(0px);} 100%{ transform:translate(-50%);} }
   @media (prefers-reduced-motion: reduce){ .shipping-marquee-track{ animation:none;} }
@@ -343,7 +343,7 @@
 </div>
 
 <div class="shipping-marquee" aria-hidden="true">
-  <div class="shipping-marquee-track" id="shippingMarqueeTrack"></div>
+  <div class="shipping-marquee-track" id="shippingMarqueeTrack"><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span></div>
 </div>
 
 <section class="promo-photos" aria-label="Promociones" data-home-section="promo-photos">
