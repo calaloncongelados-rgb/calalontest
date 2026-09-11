@@ -6,7 +6,7 @@
 <title>CALALÓN Congelados — Delivery Santiago RM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1c2e33;
@@ -170,13 +170,13 @@
     .promo-photos{ padding:24px 0;}
   }
 
-  /* ---------- franja de envío gratis (scroll infinito, estilo catch.cl) ---------- */
-  .shipping-marquee{ background:var(--gold); overflow:hidden; padding:13px 0;}
-  .shipping-marquee-track{ display:flex; width:max-content; animation:shipping-marquee-scroll 24s linear infinite;}
-  .shipping-marquee-item{ display:inline-flex; align-items:center; white-space:nowrap; color:#fff; font-family:'Archivo', sans-serif; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.04em; padding:0 26px; position:relative;}
-  .shipping-marquee-item::after{ content:'✦'; position:absolute; right:0; font-size:10px; opacity:0.65;}
-  @keyframes shipping-marquee-scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  /* ---------- franja de envío gratis (scroll infinito, idéntica a la de catch.cl) ---------- */
+  .shipping-marquee{ background:var(--gold); overflow:hidden; height:46px; display:flex; align-items:center;}
+  .shipping-marquee-track{ display:inline-flex; width:max-content; animation:shipping-marquee-scroll 24s linear infinite; transform:translate(0px);}
+  .shipping-marquee-item{ display:inline-block; white-space:nowrap; color:#faf2e4; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:26px; text-transform:uppercase; padding-right:14px;}
+  @keyframes shipping-marquee-scroll{ 0%{ transform:translate(0px);} 100%{ transform:translate(-50%);} }
   @media (prefers-reduced-motion: reduce){ .shipping-marquee-track{ animation:none;} }
+  @media (max-width:640px){ .shipping-marquee{ height:36px;} .shipping-marquee-item{ font-size:19px;} }
 
   section{ padding:64px 0; }
   .section-head{ text-align:center; margin-bottom:40px;}
