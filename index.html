@@ -170,6 +170,14 @@
     .promo-photos{ padding:24px 0;}
   }
 
+  /* ---------- franja de envío gratis (scroll infinito, estilo catch.cl) ---------- */
+  .shipping-marquee{ background:var(--gold); overflow:hidden; padding:13px 0;}
+  .shipping-marquee-track{ display:flex; width:max-content; animation:shipping-marquee-scroll 24s linear infinite;}
+  .shipping-marquee-item{ display:inline-flex; align-items:center; white-space:nowrap; color:#fff; font-family:'Archivo', sans-serif; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.04em; padding:0 26px; position:relative;}
+  .shipping-marquee-item::after{ content:'✦'; position:absolute; right:0; font-size:10px; opacity:0.65;}
+  @keyframes shipping-marquee-scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .shipping-marquee-track{ animation:none;} }
+
   section{ padding:64px 0; }
   .section-head{ text-align:center; margin-bottom:40px;}
   .section-head h2{ font-size:30px; margin-top:8px;}
@@ -332,6 +340,10 @@
     </video>
     <div class="video-overlay-text"><span id="heroPhraseText"></span></div>
   </div>
+</div>
+
+<div class="shipping-marquee" aria-hidden="true">
+  <div class="shipping-marquee-track" id="shippingMarqueeTrack"></div>
 </div>
 
 <section class="promo-photos" aria-label="Promociones" data-home-section="promo-photos">
@@ -780,12 +792,17 @@
     window.addEventListener('scroll', syncScrollState, { passive:true });
   }
 
-  // ---------- Mensaje de la franja superior (Home Editor) ----------
+  // ---------- Mensaje de la franja superior + franja de envío gratis (mismo texto, Home Editor) ----------
   async function loadAnnouncementBar(){
     const { data } = await supabaseClient.from('home_content').select('title').eq('slot_key', 'announcement-bar').maybeSingle();
-    if (data && data.title){
-      const el = document.getElementById('announcementText');
-      if (el) el.textContent = data.title;
+    const message = (data && data.title) || 'Despacho gratis en Viña del Mar, por ventas sobre $40.000';
+
+    const topbarEl = document.getElementById('announcementText');
+    if (topbarEl) topbarEl.textContent = message;
+
+    const track = document.getElementById('shippingMarqueeTrack');
+    if (track){
+      track.innerHTML = `<span class="shipping-marquee-item">${message}</span>`.repeat(8);
     }
   }
 
