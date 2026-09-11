@@ -138,7 +138,7 @@
   .results-bar{ padding:24px 0 8px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); opacity:0.55;}
 
   .prod-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; padding:24px 0 80px;}
-  .prod-card{ background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:hidden; transition:transform .15s, box-shadow .15s; display:flex; flex-direction:column;}
+  .prod-card{ background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden; transition:transform .15s, box-shadow .15s; display:flex; flex-direction:column;}
   .prod-card:hover{ transform:translateY(-4px); box-shadow:0 18px 32px -18px rgba(32,40,26,0.4);}
   .prod-visual{ aspect-ratio:1144/1200; background:var(--linen); position:relative; overflow:hidden;}
   .prod-visual img{ width:100%; height:100%; object-fit:cover;}
@@ -147,6 +147,12 @@
   .prod-cat{ font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-deep);}
   .prod-body h3{ font-size:16.5px; margin-bottom:2px;}
   .prod-meta{ font-size:12.5px; opacity:0.6;}
+  .prod-desc-wrap{ margin-top:-2px;}
+  .prod-desc-toggle{ display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0; margin:0; font-family:'Public Sans',sans-serif; font-size:11.5px; font-weight:700; color:var(--olive-deep); cursor:pointer; text-transform:uppercase; letter-spacing:0.03em;}
+  .prod-desc-toggle .chev{ transition:transform .2s ease; flex-shrink:0;}
+  .prod-desc-toggle.open .chev{ transform:rotate(180deg);}
+  .prod-desc-text{ font-size:12.5px; line-height:1.5; opacity:0.72; max-height:0; overflow:hidden; transition:max-height .28s ease, margin .28s ease; margin:0;}
+  .prod-desc-text.open{ max-height:240px; margin-top:6px;}
   .prod-price{ font-family:'Archivo', sans-serif; font-weight:700; font-size:19px; color:var(--olive-deep); margin-top:auto; padding-top:8px;}
   .prod-actions{ display:flex; gap:8px; padding:0 18px 18px; align-items:center;}
   .btn-add-cart{ flex:1; background:var(--olive-deep); color:#fff; border:none; border-radius:6px; padding:0 10px; height:34px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em; cursor:pointer; transition:background .15s;}
@@ -220,7 +226,7 @@
 <div class="topbar">
   <div class="wrap">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v9H3z" stroke="#ede8df" stroke-width="1.6"/><path d="M14 10h4l3 3v3h-7v-6Z" stroke="#ede8df" stroke-width="1.6"/><circle cx="7" cy="18" r="1.6" fill="#ede8df"/><circle cx="17" cy="18" r="1.6" fill="#ede8df"/></svg>
-    <span>Despacho gratis en Viña del Mar, por ventas sobre $40.000</span>
+    <span id="announcementText">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span>
   </div>
 </div>
 
@@ -391,6 +397,15 @@
     });
   })();
 
+  // ---------- Mensaje de la franja superior (Home Editor) ----------
+  (async () => {
+    const { data } = await supabaseClient.from('home_content').select('title').eq('slot_key', 'announcement-bar').maybeSingle();
+    if (data && data.title){
+      const el = document.getElementById('announcementText');
+      if (el) el.textContent = data.title;
+    }
+  })();
+
   let allProducts = [];
   let allCategories = [];
   let activeCategory = 'all';
@@ -434,6 +449,14 @@
             <span class="prod-cat">${(p.categoryList || []).map(c => c.name).join(' · ') || p.category || ''}</span>
             <h3>${p.name}</h3>
             <span class="prod-meta">${[p.format, p.origin].filter(Boolean).join(' · ')}</span>
+            ${p.description ? `
+            <div class="prod-desc-wrap">
+              <button type="button" class="prod-desc-toggle" data-desc-toggle>
+                <span>Descripción</span>
+                <svg class="chev" width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <p class="prod-desc-text">${p.description}</p>
+            </div>` : ''}
             <div class="prod-price">${formatCLP(p.price)}</div>
           </div>
         </a>
@@ -620,6 +643,17 @@
   })();
   // ---------- Contador de cantidad + agregar al carrito, por tarjeta ----------
   grid.addEventListener('click', (e) => {
+    const descToggle = e.target.closest('.prod-desc-toggle');
+    if (descToggle){
+      e.preventDefault();
+      e.stopPropagation();
+      const wrap = descToggle.closest('.prod-desc-wrap');
+      const text = wrap.querySelector('.prod-desc-text');
+      const isOpen = text.classList.toggle('open');
+      descToggle.classList.toggle('open', isOpen);
+      return;
+    }
+
     const minus = e.target.closest('.qty-minus');
     const plus = e.target.closest('.qty-plus');
     const addBtn = e.target.closest('.btn-add-cart');

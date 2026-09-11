@@ -1071,6 +1071,19 @@
           </details>
 
           <details class="he-accordion">
+            <summary><span class="he-accordion-icon">📢</span> Franja superior (mensaje)</summary>
+            <div class="he-accordion-body">
+              <p class="hint" style="margin-bottom:16px;">El mensaje de la franja angosta que aparece sobre el menú, en index.html y productos.html.</p>
+              <div class="field">
+                <label>Mensaje</label>
+                <input type="text" id="announcementBarInput" maxlength="140" placeholder="Ej: Despacho gratis en Viña del Mar, por ventas sobre $40.000">
+              </div>
+              <button type="button" class="btn btn-primary" id="saveAnnouncementBarBtn" style="width:auto;">Guardar mensaje</button>
+              <div class="site-image-status" id="announcementBarStatus"></div>
+            </div>
+          </details>
+
+          <details class="he-accordion">
             <summary><span class="he-accordion-icon">↕️</span> Orden de las secciones</summary>
             <div class="he-accordion-body">
               <p class="hint" style="margin-bottom:16px;">El banner principal y la barra de "Suscríbete" quedan siempre fijos en su lugar — acá solo ordenas el resto de los bloques entre ellos.</p>
@@ -2074,6 +2087,7 @@
       if (!navCategoriesLoaded) loadNavCategories();
       if (!homeSectionsLoaded) loadHomeSections();
       if (!siteColorsLoaded) loadSiteColors();
+      if (!announcementBarLoaded) loadAnnouncementBar();
     }
     if (tabId === 'config' && !shippingConfigLoaded) loadShippingConfig();
     if (tabId === 'cotizacion' && !quoteSimulatorLoaded) initQuoteSimulator();
@@ -4509,6 +4523,43 @@
       });
     });
   }
+
+  // ---------- Franja superior (mensaje editable) ----------
+  let announcementBarLoaded = false;
+
+  async function loadAnnouncementBar(){
+    announcementBarLoaded = true;
+    const { data } = await supabaseClient.from('home_content').select('title').eq('slot_key', 'announcement-bar').maybeSingle();
+    const input = document.getElementById('announcementBarInput');
+    if (input) input.value = (data && data.title) || 'Despacho gratis en Viña del Mar, por ventas sobre $40.000';
+  }
+
+  document.getElementById('saveAnnouncementBarBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('saveAnnouncementBarBtn');
+    const statusEl = document.getElementById('announcementBarStatus');
+    const value = document.getElementById('announcementBarInput').value.trim();
+    btn.disabled = true;
+    btn.textContent = 'Guardando...';
+    try {
+      const { error } = await supabaseClient.from('home_content').upsert({
+        slot_key: 'announcement-bar',
+        title: value || null,
+        link_url: null,
+        updated_at: new Date().toISOString()
+      });
+      if (error) throw error;
+      homeContentMap['announcement-bar'] = { slot_key: 'announcement-bar', title: value || null, link_url: null };
+      statusEl.textContent = 'Guardado ✓';
+      statusEl.className = 'site-image-status ok';
+    } catch (err){
+      statusEl.textContent = 'No se pudo guardar: ' + err.message;
+      statusEl.className = 'site-image-status error';
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Guardar mensaje';
+    }
+  });
 
   // ---------- Orden de las secciones del inicio ----------
   const HOME_SECTION_LABELS = {
