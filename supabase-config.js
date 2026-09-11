@@ -12,7 +12,7 @@
 // hecho de que esta clave esté oculta.
 // ============================================================
 
-const SUPABASE_URL = 'https://rcgqwxmxhqbqxsdhnrkm.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjZ3F3eG14aHFicXhzZGhucmttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyMTAxMzEsImV4cCI6MjEwMDc4NjEzMX0.E0rofOrvBFyZ_sntfPkqHhJfcWHitFeJw2DG9DdYEvY';
+const SUPABASE_URL = 'https://yiaqcofvtzaduvsbrmuh.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlpYXFjb2Z2dHphZHV2c2JybXVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzNTEwNjAsImV4cCI6MjA5NTkyNzA2MH0.kJrnUxuBOjTUCipiiKiVelxnB0y0c6HHE_qcjjWTKTU';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
