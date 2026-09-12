@@ -1076,7 +1076,7 @@
               <p class="hint" style="margin-bottom:16px;">El mensaje de la franja angosta que aparece sobre el menú, en index.html y productos.html.</p>
               <div class="field">
                 <label>Mensaje</label>
-                <input type="text" id="announcementBarInput" maxlength="140" placeholder="Ej: Despacho gratis en Viña del Mar, por ventas sobre $40.000">
+                <input type="text" id="announcementBarInput" maxlength="140" placeholder="Ej: ¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!">
               </div>
               <button type="button" class="btn btn-primary" id="saveAnnouncementBarBtn" style="width:auto;">Guardar mensaje</button>
               <div class="site-image-status" id="announcementBarStatus"></div>
@@ -4531,7 +4531,7 @@
     announcementBarLoaded = true;
     const { data } = await supabaseClient.from('home_content').select('title').eq('slot_key', 'announcement-bar').maybeSingle();
     const input = document.getElementById('announcementBarInput');
-    if (input) input.value = (data && data.title) || 'Despacho gratis en Viña del Mar, por ventas sobre $40.000';
+    if (input) input.value = (data && data.title) || '¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!';
   }
 
   document.getElementById('saveAnnouncementBarBtn').addEventListener('click', async () => {

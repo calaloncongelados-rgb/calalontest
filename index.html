@@ -308,7 +308,7 @@
 <div class="topbar">
   <div class="wrap">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v9H3z" stroke="#ede8df" stroke-width="1.6"/><path d="M14 10h4l3 3v3h-7v-6Z" stroke="#ede8df" stroke-width="1.6"/><circle cx="7" cy="18" r="1.6" fill="#ede8df"/><circle cx="17" cy="18" r="1.6" fill="#ede8df"/></svg>
-    <span id="announcementText">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span>
+    <span id="announcementText">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span>
   </div>
 </div>
 
@@ -342,7 +342,7 @@
 </div>
 
 <div class="shipping-marquee" aria-hidden="true">
-  <div class="shipping-marquee-track" id="shippingMarqueeTrack"><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span><span class="shipping-marquee-item">Despacho gratis en Viña del Mar, por ventas sobre $40.000</span></div>
+  <div class="shipping-marquee-track" id="shippingMarqueeTrack"><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span><span class="shipping-marquee-item">¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!</span></div>
 </div>
 
 <section class="promo-photos" aria-label="Promociones" data-home-section="promo-photos">
@@ -794,7 +794,7 @@
   // ---------- Mensaje de la franja superior + franja de envío gratis (mismo texto, Home Editor) ----------
   async function loadAnnouncementBar(){
     const { data } = await supabaseClient.from('home_content').select('title').eq('slot_key', 'announcement-bar').maybeSingle();
-    const message = (data && data.title) || 'Despacho gratis en Viña del Mar, por ventas sobre $40.000';
+    const message = (data && data.title) || '¡ENVÍO GRATIS EN COMPRAS SOBRE $29.990!';
 
     const topbarEl = document.getElementById('announcementText');
     if (topbarEl) topbarEl.textContent = message;
