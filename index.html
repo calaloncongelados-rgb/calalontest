@@ -171,11 +171,11 @@
   }
 
   /* ---------- franja de envío gratis (scroll infinito, estilo catch.cl pero con letra más amigable) ---------- */
-  .shipping-marquee{ background:var(--gold); overflow:hidden; height:34px; display:flex; align-items:center;}
+  .shipping-marquee{ background:var(--gold); overflow:hidden; height:46px; display:flex; align-items:center;}
   .shipping-marquee-track{ display:inline-flex; flex-shrink:0; width:max-content; animation:shipping-marquee-scroll 28s linear infinite; transform:translate(0px);}
-  .shipping-marquee-item{ display:inline-block; white-space:nowrap; color:#faf2e4; font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; text-transform:none; padding-right:22px;}
+  .shipping-marquee-item{ display:inline-block; white-space:nowrap; color:#faf2e4; font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:21px; letter-spacing:0.01em; text-transform:none; padding-right:26px;}
   @keyframes shipping-marquee-scroll{ 0%{ transform:translate(0px);} 100%{ transform:translate(-50%);} }
-  @media (max-width:640px){ .shipping-marquee{ height:30px;} .shipping-marquee-item{ font-size:13px; padding-right:16px;} }
+  @media (max-width:640px){ .shipping-marquee{ height:36px;} .shipping-marquee-item{ font-size:16px; padding-right:18px;} }
 
   section{ padding:64px 0; }
   .section-head{ text-align:center; margin-bottom:40px;}
