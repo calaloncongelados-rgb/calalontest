@@ -171,14 +171,16 @@
   .section-head h2{ font-size:30px; margin-top:8px;}
 
   /* ---------- category showcase (no frame, text over photo) ---------- */
-  .cat-grid{ display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:20px; --card-h:460px;}
-  .cat-card{ position:relative; display:block; height:var(--card-h); border-radius:12px; overflow:hidden;}
-  .cat-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s;}
-  .cat-card:hover img{ transform:scale(1.06);}
-  .cat-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,24,15,0.55) 0%, rgba(20,24,15,0.05) 42%, transparent 60%);}
-  .cat-label{ position:relative; z-index:2; display:block; padding:22px; color:#fff; font-family:'Archivo',sans-serif; font-weight:700; font-size:19px; text-transform:uppercase; letter-spacing:0.02em;}
-  .cat-col-split{ display:flex; flex-direction:column; gap:20px; height:var(--card-h);}
-  .cat-col-split .cat-card{ height:auto; flex:1;}
+  /* ---------- categorías destacadas (estilo conagallas.cl: foto flotante + botón oscuro) ---------- */
+  .cat-strip{ background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .cat-grid{ display:grid; grid-template-columns:repeat(4, 1fr);}
+  .cat-card{ position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; height:480px; padding:32px 20px 36px; border-right:1px solid var(--line);}
+  .cat-card:last-child{ border-right:none;}
+  .cat-card-imgwrap{ flex:1; width:100%; display:flex; align-items:center; justify-content:center; min-height:0;}
+  .cat-card-imgwrap img{ max-width:86%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block; transition:transform .35s ease;}
+  .cat-card:hover .cat-card-imgwrap img{ transform:scale(1.05);}
+  .cat-label{ display:inline-flex; align-items:center; justify-content:center; background:var(--ink); color:#fff; font-family:'Archivo',sans-serif; font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:0.03em; padding:13px 22px; border-radius:8px; white-space:nowrap; margin-top:22px; transition:background .15s;}
+  .cat-card:hover .cat-label{ background:var(--olive-deep);}
 
   /* ---------- confidence / trust section ---------- */
   .confidence{ background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:40px 0;}
@@ -278,8 +280,11 @@
   .wsp-float:hover{ transform:scale(1.07); }
 
   @media (max-width:860px){
-    .cat-grid{ grid-template-columns:1fr; --card-h:260px;}
-    .cat-col-split{ height:auto; flex-direction:row;}
+    .cat-grid{ grid-template-columns:repeat(2, 1fr);}
+    .cat-card{ height:280px; padding:22px 14px 26px;}
+    .cat-card:nth-child(2n){ border-right:none;}
+    .cat-card:nth-child(-n+2){ border-bottom:1px solid var(--line);}
+    .cat-label{ font-size:11px; padding:11px 16px; margin-top:16px;}
     .prod-grid, .featured, .foot-grid, .confidence-grid{ grid-template-columns:1fr;}
     .confidence{ padding:32px 0;}
     .confidence-grid{ gap:32px;}
@@ -358,28 +363,24 @@
   </div>
 </section>
 
-<section id="productos" style="padding-top:0; padding-bottom:0;" data-home-section="category-grid">
-  <div class="wrap">
-    <div class="cat-grid">
-      <a class="cat-card" id="catMesaLink" href="productos.html?cat=aceitunas-mesa">
-        <img id="catMesaImg" src="aceitunasmesa.jpg" alt="Camarones">
-        <span class="cat-label" id="catMesaLabel">Camarones</span>
-      </a>
-      <a class="cat-card" id="catPremiumLink" href="productos.html?cat=aceitunas-premium">
-        <img id="catPremiumImg" src="aceitunaspremium.jpg" alt="Pescados">
-        <span class="cat-label" id="catPremiumLabel">Pescados</span>
-      </a>
-      <div class="cat-col-split">
-        <a class="cat-card" id="catEspecialesLink" href="productos.html?cat=aceitunas-especiales">
-          <img id="catEspecialesImg" src="especiales.jpg" alt="Mariscos premium">
-          <span class="cat-label" id="catEspecialesLabel">Mariscos premium</span>
-        </a>
-        <a class="cat-card" id="catPacksLink" href="ventas-mayor.html">
-          <img id="catPacksImg" src="packs.jpg" alt="Venta por mayor">
-          <span class="cat-label" id="catPacksLabel">Venta por mayor</span>
-        </a>
-      </div>
-    </div>
+<section id="productos" class="cat-strip" style="padding-top:0; padding-bottom:0;" data-home-section="category-grid">
+  <div class="cat-grid">
+    <a class="cat-card" id="catMesaLink" href="productos.html?cat=aceitunas-mesa">
+      <span class="cat-card-imgwrap"><img id="catMesaImg" src="aceitunasmesa.jpg" alt="Camarones"></span>
+      <span class="cat-label" id="catMesaLabel">Camarones</span>
+    </a>
+    <a class="cat-card" id="catPremiumLink" href="productos.html?cat=aceitunas-premium">
+      <span class="cat-card-imgwrap"><img id="catPremiumImg" src="aceitunaspremium.jpg" alt="Pescados"></span>
+      <span class="cat-label" id="catPremiumLabel">Pescados</span>
+    </a>
+    <a class="cat-card" id="catEspecialesLink" href="productos.html?cat=aceitunas-especiales">
+      <span class="cat-card-imgwrap"><img id="catEspecialesImg" src="especiales.jpg" alt="Mariscos premium"></span>
+      <span class="cat-label" id="catEspecialesLabel">Mariscos premium</span>
+    </a>
+    <a class="cat-card" id="catPacksLink" href="ventas-mayor.html">
+      <span class="cat-card-imgwrap"><img id="catPacksImg" src="packs.jpg" alt="Venta por mayor"></span>
+      <span class="cat-label" id="catPacksLabel">Venta por mayor</span>
+    </a>
   </div>
 </section>
 
