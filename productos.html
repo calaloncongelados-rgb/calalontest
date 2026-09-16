@@ -151,8 +151,14 @@
   .prod-desc-toggle{ display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0; margin:0; font-family:'Public Sans',sans-serif; font-size:11.5px; font-weight:700; color:var(--olive-deep); cursor:pointer; text-transform:uppercase; letter-spacing:0.03em;}
   .prod-desc-toggle .chev{ transition:transform .2s ease; flex-shrink:0;}
   .prod-desc-toggle.open .chev{ transform:rotate(180deg);}
-  .prod-desc-text{ font-size:12.5px; line-height:1.5; opacity:0.72; max-height:0; overflow:hidden; transition:max-height .28s ease, margin .28s ease; margin:0;}
-  .prod-desc-text.open{ max-height:240px; margin-top:6px;}
+  .prod-desc-text{ background:var(--linen); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; font-size:12.5px; line-height:1.5; color:var(--ink); opacity:0.85; max-height:0; overflow:hidden; padding:0 12px; transition:max-height .28s ease, margin .28s ease, padding .28s ease; margin:0;}
+  .prod-desc-text.open{ max-height:240px; margin-top:8px; padding:10px 12px;}
+  .prod-tags{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0; color:var(--ink); opacity:0.65;}
+  .prod-tag{ display:inline-flex; align-items:center; gap:5px; font-size:11px;}
+  .prod-tag svg{ flex-shrink:0;}
+  .prod-weight-pills{ display:flex; gap:6px; flex-wrap:wrap; margin:0;}
+  .prod-weight-pill{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; letter-spacing:0.02em; padding:6px 12px; border-radius:20px; border:1.5px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; transition:background .15s, border-color .15s, color .15s;}
+  .prod-weight-pill.active{ background:var(--ink); border-color:var(--ink); color:#fff;}
   .prod-price{ font-family:'Archivo', sans-serif; font-weight:700; font-size:19px; color:var(--olive-deep); margin-top:auto; padding-top:8px;}
   .prod-actions{ display:flex; gap:8px; padding:0 18px 18px; align-items:center;}
   .btn-add-cart{ flex:1; background:var(--olive-deep); color:#fff; border:none; border-radius:6px; padding:0 10px; height:34px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em; cursor:pointer; transition:background .15s;}
@@ -420,6 +426,9 @@
     return `https://wa.me/56978097859?text=${msg}`;
   }
 
+  const PROD_TAG_SNOWFLAKE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M4.5 6l15 12M19.5 6l-15 12M2 12h20"/></svg>';
+  const PROD_TAG_PACKAGE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>';
+
   function renderProducts(){
     const filtered = allProducts.filter(p => {
       const matchCategory = activeCategory === 'all' || (p.categoryList || []).some(c => c.slug === activeCategory);
@@ -439,7 +448,7 @@
     }
 
     grid.innerHTML = filtered.map(p => `
-      <div class="prod-card">
+      <div class="prod-card" data-product-id="${p.id}" data-selected-variant-idx="0">
         <a href="producto.html?id=${p.id}" style="display:block; color:inherit;">
           <div class="prod-visual">
             ${p.image_url ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy">` : ''}
@@ -448,7 +457,14 @@
           <div class="prod-body">
             <span class="prod-cat">${(p.categoryList || []).map(c => c.name).join(' · ') || p.category || ''}</span>
             <h3>${p.name}</h3>
-            <span class="prod-meta">${[p.format, p.origin].filter(Boolean).join(' · ')}</span>
+            <div class="prod-tags">
+              <span class="prod-tag">${PROD_TAG_SNOWFLAKE}<span>Congelado</span></span>
+              ${p.format ? `<span class="prod-tag">${PROD_TAG_PACKAGE}<span>${p.format}</span></span>` : ''}
+            </div>
+            ${(p.variants || []).length ? `
+            <div class="prod-weight-pills">
+              ${p.variants.map((v, i) => `<button type="button" class="prod-weight-pill ${i === 0 ? 'active' : ''}" data-variant-idx="${i}">${v.label}</button>`).join('')}
+            </div>` : ''}
             ${p.description ? `
             <div class="prod-desc-wrap">
               <button type="button" class="prod-desc-toggle" data-desc-toggle>
@@ -457,7 +473,7 @@
               </button>
               <p class="prod-desc-text">${p.description}</p>
             </div>` : ''}
-            <div class="prod-price">${formatCLP(p.price)}</div>
+            <div class="prod-price" data-price>${formatCLP((p.variants || []).length ? p.variants[0].price : p.price)}</div>
           </div>
         </a>
         <div class="prod-actions">
@@ -500,9 +516,18 @@
       return;
     }
 
+    // Variantes de peso (opcional, precio propio por peso) — se traen todas de una vez
+    let variantsByProduct = {};
+    const ids = (data || []).map(p => p.id);
+    if (ids.length){
+      const { data: variantRows } = await supabaseClient.from('product_variants').select('*').in('product_id', ids).order('sort_order');
+      (variantRows || []).forEach(v => { (variantsByProduct[v.product_id] = variantsByProduct[v.product_id] || []).push(v); });
+    }
+
     allProducts = (data || []).map(p => ({
       ...p,
-      categoryList: (p.product_categories || []).map(pc => pc.categories).filter(Boolean)
+      categoryList: (p.product_categories || []).map(pc => pc.categories).filter(Boolean),
+      variants: variantsByProduct[p.id] || []
     }));
     renderProducts();
   }
@@ -643,6 +668,21 @@
   })();
   // ---------- Contador de cantidad + agregar al carrito, por tarjeta ----------
   grid.addEventListener('click', (e) => {
+    const pillBtn = e.target.closest('.prod-weight-pill');
+    if (pillBtn){
+      e.preventDefault();
+      e.stopPropagation();
+      const card = pillBtn.closest('.prod-card');
+      const idx = parseInt(pillBtn.dataset.variantIdx);
+      card.querySelectorAll('.prod-weight-pill').forEach(p => p.classList.remove('active'));
+      pillBtn.classList.add('active');
+      card.dataset.selectedVariantIdx = idx;
+      const product = allProducts.find(p => p.id === card.dataset.productId);
+      const variant = product && product.variants[idx];
+      if (variant) card.querySelector('[data-price]').textContent = formatCLP(variant.price);
+      return;
+    }
+
     const descToggle = e.target.closest('.prod-desc-toggle');
     if (descToggle){
       e.preventDefault();
@@ -673,7 +713,13 @@
       const card = addBtn.closest('.prod-card');
       const stepperValue = card.querySelector('.qty-value');
       const qty = parseInt(stepperValue.textContent);
-      addToCart(product, qty);
+      let cartProduct = product;
+      if (product.variants && product.variants.length){
+        const idx = parseInt(card.dataset.selectedVariantIdx || '0');
+        const variant = product.variants[idx];
+        if (variant) cartProduct = { ...product, price: variant.price, variant_label: variant.label };
+      }
+      addToCart(cartProduct, qty);
       stepperValue.textContent = '1';
       const original = addBtn.textContent;
       addBtn.textContent = '✓ Agregado';

@@ -34,6 +34,12 @@
     width:100%; border:1.5px solid var(--line); border-radius:6px; padding:11px 14px; font-size:16px; background:#fff; color:var(--ink); outline:none; transition:border-color .15s;
   }
   .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--olive-deep);}
+  .variant-row{ display:flex; gap:8px; align-items:center; margin-bottom:8px;}
+  .variant-row input{ border:1.5px solid var(--line); border-radius:6px; padding:9px 12px; font-size:14px; background:#fff; color:var(--ink); outline:none; transition:border-color .15s;}
+  .variant-row input:focus{ border-color:var(--olive-deep);}
+  .variant-row .variant-label{ flex:1; min-width:0;}
+  .variant-row .variant-price{ width:110px; flex-shrink:0;}
+  .variant-row .icon-btn{ flex-shrink:0;}
   .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:6px; font-size:14px; font-weight:600; cursor:pointer; border:1px solid transparent; transition:transform .15s, background .15s; width:100%;}
   .btn:hover{ transform:translateY(-1px);}
   .btn-primary{ background:var(--olive-deep); color:var(--paper);}
@@ -1356,6 +1362,15 @@
       </div>
 
       <div class="field">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+          <label style="margin-bottom:0;">Variantes de peso <span style="opacity:0.5; font-weight:400;">(opcional)</span></label>
+          <button type="button" class="btn-link" id="addVariantBtn" style="font-size:12px;">+ Agregar variante</button>
+        </div>
+        <p class="hint" style="margin-bottom:10px;">Si agregas variantes (ej. "300 G" y "550 G"), en la página el cliente elige el peso y ve el precio de cada una. Si no agregas ninguna, se usa el precio y el peso de arriba.</p>
+        <div id="variantsList"></div>
+      </div>
+
+      <div class="field">
         <label>Descripción</label>
         <textarea id="fieldDescription" rows="3" placeholder="Detalle breve del producto"></textarea>
       </div>
@@ -2230,7 +2245,45 @@
     formError.style.display = 'none';
     document.getElementById('fieldActive').checked = true;
     renderFieldCategoriesList([]);
+    currentVariants = [];
+    renderVariantsList();
   }
+
+  // ---------- Variantes de peso (precio por peso, opcional) ----------
+  let currentVariants = [];
+
+  function renderVariantsList(){
+    const container = document.getElementById('variantsList');
+    if (!container) return;
+    if (currentVariants.length === 0){
+      container.innerHTML = `<p class="hint" style="opacity:0.6; margin:0;">Sin variantes — se usa el precio y peso de arriba.</p>`;
+      return;
+    }
+    container.innerHTML = currentVariants.map((v, idx) => `
+      <div class="variant-row" data-idx="${idx}">
+        <input type="text" class="variant-label" value="${escapeAttr(v.label || '')}" placeholder="Ej: 300 G">
+        <input type="number" class="variant-price" value="${v.price || ''}" min="0" step="1" placeholder="Precio">
+        <button type="button" class="icon-btn variant-remove" title="Quitar variante" data-idx="${idx}">✕</button>
+      </div>
+    `).join('');
+    container.querySelectorAll('.variant-label').forEach((el, i) => {
+      el.addEventListener('input', (e) => { currentVariants[i].label = e.target.value; });
+    });
+    container.querySelectorAll('.variant-price').forEach((el, i) => {
+      el.addEventListener('input', (e) => { currentVariants[i].price = parseFloat(e.target.value) || 0; });
+    });
+    container.querySelectorAll('.variant-remove').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentVariants.splice(parseInt(btn.dataset.idx), 1);
+        renderVariantsList();
+      });
+    });
+  }
+
+  document.getElementById('addVariantBtn').addEventListener('click', () => {
+    currentVariants.push({ id: null, label: '', price: 0 });
+    renderVariantsList();
+  });
 
   document.getElementById('newProductBtn').addEventListener('click', () => {
     resetForm();
@@ -2261,6 +2314,12 @@
     if (p.image_url){
       imagePreview.innerHTML = `<img src="${p.image_url}" alt="">`;
     }
+    currentVariants = [];
+    renderVariantsList();
+    supabaseClient.from('product_variants').select('*').eq('product_id', id).order('sort_order').then(({ data }) => {
+      currentVariants = (data || []).map(v => ({ id: v.id, label: v.label, price: v.price }));
+      renderVariantsList();
+    });
     openModal(modalBackdrop);
   };
 
@@ -2348,6 +2407,15 @@
       if (selectedCategoryIds.length > 0){
         await supabaseClient.from('product_categories').insert(
           selectedCategoryIds.map(catId => ({ product_id: productId, category_id: catId }))
+        );
+      }
+
+      // Sincroniza las variantes de peso: borra las anteriores y guarda las actuales
+      await supabaseClient.from('product_variants').delete().eq('product_id', productId);
+      const validVariants = currentVariants.filter(v => v.label && v.label.trim() && v.price > 0);
+      if (validVariants.length > 0){
+        await supabaseClient.from('product_variants').insert(
+          validVariants.map((v, i) => ({ product_id: productId, label: v.label.trim(), price: v.price, sort_order: i }))
         );
       }
 
