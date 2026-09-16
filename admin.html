@@ -215,10 +215,11 @@
   .hpm-promo-imgs img{ width:100%; height:100%; object-fit:cover;}
   .hpm-promo-imgs .hpm-noimg{ font-size:9px; opacity:0.4; text-transform:none;}
 
-  .hpm-cat-grid{ background:var(--hp-paper, var(--paper)); padding:10px 8px; display:grid; grid-template-columns:repeat(4,1fr); gap:6px;}
-  .hpm-cat-tile{ position:relative; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:4px; aspect-ratio:3/4; background:rgba(0,0,0,0.04); border-radius:4px; padding:6px 4px 8px;}
-  .hpm-cat-tile img{ max-width:78%; max-height:65%; width:auto; height:auto; object-fit:contain;}
-  .hpm-cat-tile span{ color:#fff; background:var(--hp-ink, var(--ink)); font-size:6.5px; font-weight:700; text-transform:uppercase; padding:4px 6px; border-radius:4px; white-space:nowrap;}
+  .hpm-cat-grid{ background:var(--hp-paper, var(--paper)); display:grid; grid-template-columns:repeat(4,1fr); gap:1px;}
+  .hpm-cat-tile{ position:relative; display:flex; align-items:flex-end; justify-content:center; aspect-ratio:2/3; overflow:hidden; background:rgba(0,0,0,0.06);}
+  .hpm-cat-tile img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .hpm-cat-tile::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:40%; background:linear-gradient(180deg, rgba(15,18,10,0) 0%, rgba(15,18,10,0.5) 100%);}
+  .hpm-cat-tile span{ position:relative; z-index:2; margin-bottom:6px; color:#fff; background:var(--hp-ink, var(--ink)); font-size:6.5px; font-weight:700; text-transform:uppercase; padding:4px 6px; border-radius:4px; white-space:nowrap;}
 
   .hpm-confidence{ background:var(--hp-paper, var(--paper)); color:var(--hp-ink, var(--ink)); padding:16px; display:flex; justify-content:space-around; text-align:center; gap:6px;}
   .hpm-confidence-item{ flex:1;}
@@ -246,11 +247,13 @@
   }
   .site-image-mockup img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none;}
   .mockup-empty{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; opacity:0.4;}
-  /* Categorías destacadas: la foto flota (sin recorte) sobre fondo claro, con un botón oscuro abajo — igual que en el sitio */
-  .site-image-mockup.category{ background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:16px 12px 18px;}
-  .site-image-mockup.category img{ position:relative; inset:auto; width:auto; height:auto; max-width:80%; max-height:78%; object-fit:contain; margin:0 auto;}
+  /* Categorías destacadas: foto 2:3 a página completa + degradado + botón oscuro superpuesto abajo — igual que en el sitio */
+  .site-image-mockup.category::after{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:38%; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(15,18,10,0) 0%, rgba(15,18,10,0.5) 100%);
+  }
   .mockup-cat-label{
-    position:relative; z-index:2; margin-top:12px; display:inline-flex; align-items:center; justify-content:center;
+    position:absolute; left:50%; bottom:14px; transform:translateX(-50%); z-index:2; display:inline-flex; align-items:center; justify-content:center;
     background:var(--ink); color:#fff; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px;
     text-transform:uppercase; letter-spacing:0.02em; padding:9px 16px; border-radius:7px; white-space:nowrap;
   }
@@ -1114,6 +1117,10 @@
             <summary><span class="he-accordion-icon">🗂️</span> Categorías destacadas <span class="he-accordion-tag">1 conjunto</span></summary>
             <div class="he-accordion-body">
               <p class="hint" style="margin-bottom:16px;">Las 4 tarjetas de categoría que aparecen debajo del carrusel de fotos — se editan como un solo conjunto.</p>
+
+              <p class="hint" style="margin-bottom:8px;"><strong>Orden en el index</strong> — con qué tarjeta aparece primero de izquierda a derecha (y de arriba a abajo en el celular).</p>
+              <div id="categoryOrderList" style="margin-bottom:20px;"></div>
+
               <div class="site-images-grid" id="categoryImagesGrid"></div>
             </div>
           </details>
@@ -2086,6 +2093,7 @@
       if (!homeSectionsLoaded) loadHomeSections();
       if (!siteColorsLoaded) loadSiteColors();
       if (!announcementBarLoaded) loadAnnouncementBar();
+      if (!categoryOrderLoaded) loadCategoryOrder();
     }
     if (tabId === 'config' && !shippingConfigLoaded) loadShippingConfig();
     if (tabId === 'cotizacion' && !quoteSimulatorLoaded) initQuoteSimulator();
@@ -4431,10 +4439,10 @@
     { key: 'fotopromo1', label: 'Foto promo 1', hint: 'Carrusel de promociones, debajo del banner', size: '1920 × 1080 px (16:9)', type: 'promo', aspect: '21/9' },
     { key: 'fotopromo2', label: 'Foto promo 2', hint: 'Carrusel de promociones, debajo del banner', size: '1920 × 1080 px (16:9)', type: 'promo', aspect: '21/9' },
     { key: 'fotopromo3', label: 'Foto promo 3', hint: 'Carrusel de promociones, debajo del banner', size: '1920 × 1080 px (16:9)', type: 'promo', aspect: '21/9' },
-    { key: 'aceitunas-mesa', label: 'Camarones', hint: 'Foto de producto "flotante" — se ve mejor con fondo blanco o transparente', size: '900 × 900 px, fondo blanco o transparente (PNG)', type: 'category', aspect: '3/4' },
-    { key: 'aceitunas-premium', label: 'Pescados', hint: 'Foto de producto "flotante" — se ve mejor con fondo blanco o transparente', size: '900 × 900 px, fondo blanco o transparente (PNG)', type: 'category', aspect: '3/4' },
-    { key: 'especiales', label: 'Mariscos premium', hint: 'Foto de producto "flotante" — se ve mejor con fondo blanco o transparente', size: '900 × 900 px, fondo blanco o transparente (PNG)', type: 'category', aspect: '3/4' },
-    { key: 'packs', label: 'Venta por mayor', hint: 'Foto de producto "flotante" — enlaza a ventas-mayor.html por defecto', size: '900 × 900 px, fondo blanco o transparente (PNG)', type: 'category', aspect: '3/4' }
+    { key: 'aceitunas-mesa', label: 'Camarones', hint: 'Foto a página completa (se recorta para llenar el recuadro) — evita textos o logos cerca de los bordes', size: '1000 × 1500 px (proporción 2:3)', type: 'category', aspect: '2/3' },
+    { key: 'aceitunas-premium', label: 'Pescados', hint: 'Foto a página completa (se recorta para llenar el recuadro) — evita textos o logos cerca de los bordes', size: '1000 × 1500 px (proporción 2:3)', type: 'category', aspect: '2/3' },
+    { key: 'especiales', label: 'Mariscos premium', hint: 'Foto a página completa (se recorta para llenar el recuadro) — evita textos o logos cerca de los bordes', size: '1000 × 1500 px (proporción 2:3)', type: 'category', aspect: '2/3' },
+    { key: 'packs', label: 'Venta por mayor', hint: 'Foto a página completa — enlaza a ventas-mayor.html por defecto', size: '1000 × 1500 px (proporción 2:3)', type: 'category', aspect: '2/3' }
   ];
   let siteImagesLoaded = false;
   let homeContentMap = {};
@@ -4619,6 +4627,63 @@
     await supabaseClient.from('home_sections').insert(homeSectionOrder.map((id, i) => ({ id, sort_order: i })));
   }
 
+  // ---------- Orden de las categorías destacadas (dentro del bloque "category-grid") ----------
+  const CATEGORY_ORDER_KEYS = ['aceitunas-mesa', 'aceitunas-premium', 'especiales', 'packs'];
+  let categoryTileOrder = CATEGORY_ORDER_KEYS.slice();
+  let categoryOrderLoaded = false;
+
+  async function loadCategoryOrder(){
+    categoryOrderLoaded = true;
+    const { data } = await supabaseClient.from('home_content').select('title').eq('slot_key', 'category-order').maybeSingle();
+    if (data && data.title){
+      const saved = data.title.split(',').map(s => s.trim()).filter(Boolean);
+      // valida que solo tenga las 4 claves conocidas; si falta alguna o sobra una desconocida, se completa con el orden por defecto
+      const valid = saved.filter(k => CATEGORY_ORDER_KEYS.includes(k));
+      const missing = CATEGORY_ORDER_KEYS.filter(k => !valid.includes(k));
+      categoryTileOrder = [...valid, ...missing];
+    }
+    renderCategoryOrderList();
+  }
+
+  function renderCategoryOrderList(){
+    const container = document.getElementById('categoryOrderList');
+    if (!container) return;
+    container.innerHTML = categoryTileOrder.map((key, idx) => {
+      const slot = SITE_IMAGE_SLOTS.find(s => s.key === key);
+      const label = slot ? slot.label : key;
+      return `
+        <div class="section-order-row">
+          <div class="section-order-arrows">
+            <button type="button" ${idx === 0 ? 'disabled' : ''} onclick="moveCategoryTile('${key}', -1)" title="Mover antes">▲</button>
+            <button type="button" ${idx === categoryTileOrder.length - 1 ? 'disabled' : ''} onclick="moveCategoryTile('${key}', 1)" title="Mover después">▼</button>
+          </div>
+          <div>
+            <div class="section-order-name">${idx + 1}. ${label}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    renderHomePreview();
+  }
+
+  window.moveCategoryTile = function(key, dir){
+    const idx = categoryTileOrder.indexOf(key);
+    const newIdx = idx + dir;
+    if (idx === -1 || newIdx < 0 || newIdx >= categoryTileOrder.length) return;
+    [categoryTileOrder[idx], categoryTileOrder[newIdx]] = [categoryTileOrder[newIdx], categoryTileOrder[idx]];
+    renderCategoryOrderList();
+    saveCategoryOrder();
+  };
+
+  async function saveCategoryOrder(){
+    await supabaseClient.from('home_content').upsert({
+      slot_key: 'category-order',
+      title: categoryTileOrder.join(','),
+      link_url: null,
+      updated_at: new Date().toISOString()
+    });
+  }
+
   // ---------- Paleta de colores ----------
   const COLOR_FIELDS = [
     { key: 'ink', label: 'Ink (texto principal)', fallback: '#1c2e33' },
@@ -4692,17 +4757,16 @@
       return `<div class="hpm-promo-strip"><div class="hpm-promo-imgs">${imgs}</div></div>`;
     }
     if (id === 'category-grid'){
-      const tile = (key, fallback) => {
+      const tile = (key) => {
+        const slot = SITE_IMAGE_SLOTS.find(s => s.key === key);
+        const fallback = slot ? slot.label : key;
         const url = previewImageCache[key];
         const title = (homeContentMap[key] && homeContentMap[key].title) || fallback;
         return `<div class="hpm-cat-tile">${url ? `<img src="${url}" alt="">` : ''}<span>${title}</span></div>`;
       };
       return `
         <div class="hpm-cat-grid">
-          ${tile('aceitunas-mesa', 'Camarones')}
-          ${tile('aceitunas-premium', 'Pescados')}
-          ${tile('especiales', 'Mariscos premium')}
-          ${tile('packs', 'Venta por mayor')}
+          ${categoryTileOrder.map(tile).join('')}
         </div>
       `;
     }

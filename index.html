@@ -132,11 +132,12 @@
   /* ---------- video banner ---------- */
   .video-banner{ position:relative; margin:0; width:100%; padding:0;}
   .video-frame{
-    position:relative; overflow:hidden; height:clamp(320px, 42vw, 560px); width:100%;
+    position:relative; overflow:hidden; height:500px; width:100%;
     background:linear-gradient(155deg, var(--olive-deep) 0%, var(--olive) 46%, var(--gold-deep) 100%);
     display:flex; align-items:center; justify-content:center;
     box-shadow:0 18px 40px -20px rgba(32,40,26,0.35);
   }
+  @media (max-width:640px){ .video-frame{ height:320px;} }
   .video-frame video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
   .video-frame::after{
     content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -170,16 +171,19 @@
   .section-head{ text-align:center; margin-bottom:40px;}
   .section-head h2{ font-size:30px; margin-top:8px;}
 
-  /* ---------- category showcase (no frame, text over photo) ---------- */
-  /* ---------- categorías destacadas (estilo conagallas.cl: foto flotante + botón oscuro) ---------- */
+  /* ---------- categorías destacadas (estilo conagallas.cl: foto 2:3 a página completa + botón oscuro superpuesto) ---------- */
   .cat-strip{ background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
   .cat-grid{ display:grid; grid-template-columns:repeat(4, 1fr);}
-  .cat-card{ position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; height:480px; padding:32px 20px 36px; border-right:1px solid var(--line);}
+  .cat-card{ position:relative; display:block; aspect-ratio:2/3; overflow:hidden; border-right:1px solid var(--line);}
   .cat-card:last-child{ border-right:none;}
-  .cat-card-imgwrap{ flex:1; width:100%; display:flex; align-items:center; justify-content:center; min-height:0;}
-  .cat-card-imgwrap img{ max-width:86%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block; transition:transform .35s ease;}
+  .cat-card-imgwrap{ position:absolute; inset:0; width:100%; height:100%; display:block;}
+  .cat-card-imgwrap img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease;}
   .cat-card:hover .cat-card-imgwrap img{ transform:scale(1.05);}
-  .cat-label{ display:inline-flex; align-items:center; justify-content:center; background:var(--ink); color:#fff; font-family:'Archivo',sans-serif; font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:0.03em; padding:13px 22px; border-radius:8px; white-space:nowrap; margin-top:22px; transition:background .15s;}
+  .cat-card::after{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:38%; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(15,18,10,0) 0%, rgba(15,18,10,0.5) 100%);
+  }
+  .cat-label{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:2; display:inline-flex; align-items:center; justify-content:center; background:var(--ink); color:#fff; font-family:'Archivo',sans-serif; font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:0.03em; padding:13px 22px; border-radius:8px; white-space:nowrap; transition:background .15s;}
   .cat-card:hover .cat-label{ background:var(--olive-deep);}
 
   /* ---------- confidence / trust section ---------- */
@@ -281,10 +285,9 @@
 
   @media (max-width:860px){
     .cat-grid{ grid-template-columns:repeat(2, 1fr);}
-    .cat-card{ height:280px; padding:22px 14px 26px;}
     .cat-card:nth-child(2n){ border-right:none;}
     .cat-card:nth-child(-n+2){ border-bottom:1px solid var(--line);}
-    .cat-label{ font-size:11px; padding:11px 16px; margin-top:16px;}
+    .cat-label{ font-size:11px; padding:11px 16px; bottom:16px;}
     .prod-grid, .featured, .foot-grid, .confidence-grid{ grid-template-columns:1fr;}
     .confidence{ padding:32px 0;}
     .confidence-grid{ gap:32px;}
@@ -970,6 +973,25 @@
         }
       }
     }));
+
+    // Orden de las categorías destacadas (editable desde el Home Editor del admin)
+    const orderRow = contentMap['category-order'];
+    if (orderRow && orderRow.title){
+      const order = orderRow.title.split(',').map(s => s.trim()).filter(Boolean);
+      const grid = document.querySelector('.cat-grid');
+      const linkIdByKey = {
+        'aceitunas-mesa': 'catMesaLink',
+        'aceitunas-premium': 'catPremiumLink',
+        'especiales': 'catEspecialesLink',
+        'packs': 'catPacksLink'
+      };
+      if (grid && order.length){
+        order.forEach(key => {
+          const el = linkIdByKey[key] && document.getElementById(linkIdByKey[key]);
+          if (el) grid.appendChild(el);
+        });
+      }
+    }
   })();
 
   // ---------- Carrusel de videos promocionales (peek, debajo del banner) ----------
