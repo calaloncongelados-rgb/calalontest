@@ -6,7 +6,7 @@
 <title>Productos — CALALÓN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1c2e33;
@@ -145,7 +145,8 @@
   .prod-badge{ position:absolute; top:12px; left:12px; background:var(--gold); color:var(--ink); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; padding:5px 10px; border-radius:20px; font-weight:600;}
   .prod-body{ padding:18px; display:flex; flex-direction:column; gap:8px; flex:1;}
   .prod-cat{ font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-deep);}
-  .prod-body h3{ font-size:16.5px; margin-bottom:2px;}
+  .prod-body h3{ font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:34px; line-height:0.98; letter-spacing:-0.51px; text-transform:uppercase; margin-bottom:2px;}
+  @media (max-width:640px){ .prod-body h3{ font-size:27px; letter-spacing:-0.405px;} }
   .prod-meta{ font-size:12.5px; opacity:0.6;}
   .prod-desc-wrap{ margin-top:-2px;}
   .prod-desc-toggle{ display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0; margin:0; font-family:'Public Sans',sans-serif; font-size:11.5px; font-weight:700; color:var(--olive-deep); cursor:pointer; text-transform:uppercase; letter-spacing:0.03em;}

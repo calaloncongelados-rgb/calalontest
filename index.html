@@ -6,7 +6,7 @@
 <title>CALALÓN Congelados — Delivery Santiago RM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1c2e33;
@@ -204,7 +204,8 @@
   .prod-visual img{ width:100%; height:100%; object-fit:cover;}
   .prod-body{ padding:18px 18px 0;}
   .prod-cat-label{ font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold-deep);}
-  .prod-body h4{ font-family:'Archivo', sans-serif; font-weight:600; font-size:15px; margin:6px 0 4px;}
+  .prod-body h4{ font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:34px; line-height:0.98; letter-spacing:-0.51px; text-transform:uppercase; margin:6px 0 4px;}
+  @media (max-width:640px){ .prod-body h4{ font-size:27px; letter-spacing:-0.405px;} }
   .prod-desc-wrap{ margin-top:2px;}
   .prod-desc-toggle{ display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0; margin:0; font-family:'Public Sans',sans-serif; font-size:11.5px; font-weight:700; color:var(--olive-deep); cursor:pointer; text-transform:uppercase; letter-spacing:0.03em;}
   .prod-desc-toggle .chev{ transition:transform .2s ease; flex-shrink:0;}
