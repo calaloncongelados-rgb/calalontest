@@ -144,7 +144,6 @@
   .prod-visual img{ width:100%; height:100%; object-fit:cover;}
   .prod-badge{ position:absolute; top:12px; left:12px; background:var(--gold); color:var(--ink); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; padding:5px 10px; border-radius:20px; font-weight:600;}
   .prod-body{ padding:18px; display:flex; flex-direction:column; gap:8px; flex:1;}
-  .prod-cat{ font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-deep);}
   .prod-body h3{ font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:34px; line-height:0.98; letter-spacing:-0.51px; text-transform:uppercase; margin-bottom:2px;}
   @media (max-width:640px){ .prod-body h3{ font-size:27px; letter-spacing:-0.405px;} }
   .prod-meta{ font-size:12.5px; opacity:0.6;}
@@ -483,7 +482,6 @@
             ${p.featured ? '<span class="prod-badge">Destacado</span>' : ''}
           </div>
           <div class="prod-body">
-            <span class="prod-cat">${(p.categoryList || []).map(c => c.name).join(' · ') || p.category || ''}</span>
             <h3>${p.name}</h3>
             <div class="prod-tags">
               <span class="prod-tag">${PROD_TAG_SNOWFLAKE}<span>Congelado</span></span>
